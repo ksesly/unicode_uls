@@ -18,8 +18,8 @@ static void mx_format_error(void) {
 }
 
 void mx_uls_errors_checker(int argc, char* argv[]) {
-    //if (argc < 1)
-    //    mx_format_error();
+    if (argc < 1)
+       mx_format_error();
     int file = open(argv[1], O_RDONLY);
     if (argc > 1)
         mx_directory_check_error(argc, argv, file);
