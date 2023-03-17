@@ -15,17 +15,22 @@ static void mx_ls(t_list *spisok) {
 
 static void mx_lls() {
 
-    struct stat file_stat;
-    printf(" %ld ", file_stat.st_nlink);
-    struct passwd *pw = getpwuid(file_stat.st_uid);
-    printf("%s ", pw->pw_name);
-    struct group *grp = getgrgid(file_stat.st_gid);
-    printf("%s ", grp->gr_name);
-    printf("%5ld ", file_stat.st_size);
+    struct stat file_statistics;
+
+    mx_printint(file_statistics.st_nlink);
+    struct passwd *pw = getpwuid(file_statistics.st_uid);
+    mx_printstr(pw->pw_name);
+    mx_printchar(' ');
+    struct group *grp = getgrgid(file_statistics.st_gid);
+    mx_printstr(grp->gr_name);
+    mx_printchar(' ');
+    printf("%5ld ", file_statistics.st_size);
     char time_buf[100];
-    strftime(time_buf, sizeof(time_buf), "%b %d %H:%M", localtime(&file_stat.st_mtime));
-    printf("%s ", time_buf);
-    printf("%s\n", filename);
+    strftime(time_buf, sizeof(time_buf), "%b %d %H:%M", localtime(&file_statistics.st_mtime));
+    mx_printstr(time_buf);
+    mx_printchar(' ');
+    mx_printstr(filename);
+    mx_printchar('\n');
 
 }
 
