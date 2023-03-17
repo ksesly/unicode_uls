@@ -1,28 +1,23 @@
 #include "../inc/uls.h"
 
+// ls command implementation without flags
 
 void mx_ls(char* argv[]) {
-    DIR *limon;
-    if (argv[1]) {
-        limon = opendir(argv[1]);
-    }
-    else {
-        limon = opendir("apelsin");
-    }
+    DIR *limon = opendir(argv[1]);
+    if (!limon) {
+        mx_uncreated_file(argv[1]);
+    } 
     struct dirent *dir;
-    mx_printstr("proverka na vhod 1\n");
-    t_list *head = mx_create_node((void *) "LIME");
-    mx_printstr("proverka na vhod 2\n");
+    t_list *spisok = mx_create_node((void *) "LIME");
     while ((dir = readdir(limon))) {
-        mx_push_front(&head, dir->d_name);
+        mx_push_front(&spisok, dir->d_name);
     }
-    for (t_list *i = head; i->next != NULL; i = i->next) {
+    for (t_list *i = spisok; i->next != NULL; i = i->next) {
         mx_printstr(i->data);
         mx_printchar('\n');
     }
-    mx_printstr("proverka na vhod 3\n");
+    //SDELAT` SORTIROVKU
     // mx_sort_list(head, *mx_strcmp);
-    // mx_printstr("proverka na vhod 4\n");
     
     closedir(limon);
 }
