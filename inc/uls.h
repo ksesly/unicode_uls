@@ -5,6 +5,9 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <pwd.h>
+#include <time.h>
+
 
 
 
@@ -18,7 +21,7 @@ void mx_uncreated_file(char* oshibka);
 //int mx_find_last_argument(int argc);
 
 //ls
-void mx_ls(char* argv[]);
+void mx_full_ls_function(char* argv[]);
 
 
 
