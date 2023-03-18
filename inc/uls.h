@@ -23,6 +23,7 @@ void mx_uncreated_file(char* oshibka);
 
 //ls
 void mx_full_ls_function(char* argv[]);
+void bubbleSort(t_list *start);
 
 
 

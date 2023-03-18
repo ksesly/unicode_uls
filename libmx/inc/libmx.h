@@ -70,7 +70,7 @@ void mx_push_back(t_list **list, void *data);
 void mx_pop_front(t_list **head);
 void mx_pop_back(t_list **head);
 int mx_list_size(t_list *list);
-t_list *mx_sort_list(t_list *lst, int (*cmp)(const char *, const char *));
+t_list *mx_sort_list(t_list *list, int (*cmp)(const char *, const char *));
 
 
 
@@ -82,5 +82,6 @@ bool mx_isupper(int c) ;
 bool mx_islower(int c);
 int mx_atoi(const char *str);
 bool mx_isalpha(int c);
+int mx_tolower(int c);
 
 
