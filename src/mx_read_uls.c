@@ -18,8 +18,8 @@ void mx_full_ls_function(char* argv[]) {
     //SDELAT` PRVERKU ARGUMENTOV NA FLAGI
     //OT NIH ZAVISIT VYVOD
 
-    //mx_lls(spisok);
-    mx_ls(spisok); //PUST` POKA CHTO BUDET DLYA PROVERKI RABOTY
+    mx_lls(spisok);
+    //mx_ls(spisok); //PUST` POKA CHTO BUDET DLYA PROVERKI RABOTY
 
     closedir(dir);
 

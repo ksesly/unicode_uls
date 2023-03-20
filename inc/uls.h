@@ -19,10 +19,11 @@ void mx_uncreated_file(char* oshibka);
 //additional functions
 
 void mx_bubble_list_sort(t_list *start);
+char* mx_trimtime(char* tupaya_stroka);
 
 //ls
-void mx_ls(t_list *spisok);
-//void mx_lls(t_list *spisok);
+//void mx_ls(t_list *spisok);
+void mx_lls(t_list *spisok);
 void mx_full_ls_function(char* argv[]);
 
 
