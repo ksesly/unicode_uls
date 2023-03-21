@@ -2,6 +2,7 @@
     "files.associations": {
         "libmx.h": "c",
         "stat.h": "c",
-        "uls.h": "c"
+        "uls.h": "c",
+        "unistd.h": "c"
     }
 }

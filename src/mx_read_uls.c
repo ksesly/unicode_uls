@@ -5,7 +5,7 @@ void mx_full_ls_function(char* argv[]) {
     DIR *dir = opendir(argv[1]);
     if (!dir) {
         mx_uncreated_file(argv[1]); //dorabotat chtob (obrabotat posl argv)
-    } 
+    }
     struct dirent *head;
     t_list *spisok = mx_create_node((void *) "LIME");
     while ((head = readdir(dir))) {
