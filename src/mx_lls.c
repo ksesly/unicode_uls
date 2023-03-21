@@ -33,32 +33,29 @@ void mx_print_lls(struct stat file_statistics, int max){
         //mx_printchar('\n');
     //     print the format
         // mx_printint(file_statistics.st_mode);
-        mx_printchar(' ');
+    mx_printstr("  ");
 
     //     print the useness?
-         mx_printint(file_statistics.st_nlink);
-         mx_printchar(' ');
+    mx_printint(file_statistics.st_nlink);
+    mx_printchar(' ');
 
         // //print the owner`s id
-        pw = getpwuid(file_statistics.st_uid);
-        mx_printstr(pw->pw_name);
-
-        mx_printchar(' ');
+    pw = getpwuid(file_statistics.st_uid);
+    mx_printstr(pw->pw_name);
+    mx_printstr("  ");
 
         // //print the name
-        grp = getgrgid(file_statistics.st_gid);
-        mx_printstr(grp->gr_name);
-        mx_printchar(' ');
+    grp = getgrgid(file_statistics.st_gid);
+    mx_printstr(grp->gr_name);
+    mx_printstr("  ");
 
     //     print the size
-        mx_print_size(max, file_statistics.st_size);
-        mx_printchar(' ');
-
-
+    mx_print_size(max, file_statistics.st_size);
+    mx_printchar(' ');
 
     //     mx_printchar(' ');
     //     print the data and time 
         
-        mx_printstr(mx_trimtime(ctime(&file_statistics.st_mtime)));
-        mx_printchar(' ');
+    mx_printstr(mx_trimtime(ctime(&file_statistics.st_mtime)));
+    mx_printchar(' ');
 }

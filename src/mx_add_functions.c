@@ -89,5 +89,5 @@ int mx_total(t_list *spisok){
         
     }
 
-    return size / 2;
+    return size;
 }
