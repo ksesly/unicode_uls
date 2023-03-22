@@ -1,7 +1,7 @@
 #include "../inc/libmx.h"
 
 void mx_swap_char(char *s1, char *s2) {
-	printf("%s %s\n", s1, s2);
+	//printf("%s %s\n", s1, s2);
 	char temp = *s2;
 	
 	*s2 = *s1;

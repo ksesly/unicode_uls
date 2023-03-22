@@ -7,7 +7,7 @@
 #include <stdbool.h>
 #include <fcntl.h>
 //#include <malloc.h>
-#include <malloc/malloc.h>
+//#include <malloc/malloc.h>
 
 
 int mx_strlen(const char *s); 

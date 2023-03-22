@@ -2,60 +2,55 @@
 
 
  void mx_lls(t_list *spisok) {
-    mx_bubble_list_sort(spisok);
-    //mx_printstr("suka, ");
-    int max = mx_int_length(spisok);
 
+    mx_bubble_list_sort(spisok);
+
+    int max_size = mx_int_length(spisok);
     struct stat file_statistics;
-    //struct tm *tm;
+
     mx_printstr("total ");
     mx_printint(mx_total(spisok));
     mx_printchar('\n');
-    for (t_list *i = spisok; i != NULL; i = i->next) {
-        if (stat(i->data, &file_statistics) == -1) {
-            continue;
-        }
-        mx_print_lls(file_statistics, max);
 
-        //     print the file name
+    for (t_list *i = spisok; i != NULL; i = i->next) {
+        if (stat(i->data, &file_statistics) == -1) continue;
+        mx_print_lls(file_statistics, max_size);
+
+        // print the file name
         mx_printstr(i->data);
         mx_printchar('\n');
-        
     }
 }
 
-void mx_print_lls(struct stat file_statistics, int max){
+
+void mx_print_lls(struct stat file_statistics, int max_size) {
+
     struct passwd *pw;
     struct group *grp;
 
+    // print the accesss
     mx_print_file_access(file_statistics);
-        
-        //mx_printchar('\n');
-    //     print the format
-        // mx_printint(file_statistics.st_mode);
     mx_printstr("  ");
 
-    //     print the useness?
+    // print the useness
     mx_printint(file_statistics.st_nlink);
     mx_printchar(' ');
 
-        // //print the owner`s id
+    // print the owner`s id
     pw = getpwuid(file_statistics.st_uid);
     mx_printstr(pw->pw_name);
     mx_printstr("  ");
 
-        // //print the name
+    // print the name
     grp = getgrgid(file_statistics.st_gid);
     mx_printstr(grp->gr_name);
     mx_printstr("  ");
 
-    //     print the size
-    mx_print_size(max, file_statistics.st_size);
+    // print the size
+    mx_print_size(max_size, file_statistics.st_size);
     mx_printchar(' ');
 
-    //     mx_printchar(' ');
-    //     print the data and time 
-        
+    // print the data and time  
     mx_printstr(mx_trimtime(ctime(&file_statistics.st_mtime)));
     mx_printchar(' ');
 }

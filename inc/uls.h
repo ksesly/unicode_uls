@@ -9,20 +9,16 @@
 #include <time.h>
 #include <grp.h>
 
-
 //errors
 void mx_uls_errors_checker(int argc);
 void mx_uncreated_file(char* oshibka);
 
-//void mx_format_error(void);
-
 //additional functions
-
 void mx_bubble_list_sort(t_list *start);
-char* mx_trimtime(char* tupaya_stroka);
-void mx_print_file_access(struct stat file_stat);
+char* mx_trimtime(char* str);
+void mx_print_file_access(struct stat file_statistics);
 int mx_int_length(t_list *spisok);
-void mx_print_size(int max, int size);
+void mx_print_size(int max_int, int size);
 int mx_total(t_list *spisok);
 
 //ls
