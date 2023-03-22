@@ -9,9 +9,8 @@ static void mx_format_error(void) {
 //a my berem tol`ko poslednuu chast directorii ili vsu?
 void mx_uncreated_file(char* oshibka) {
     mx_printerr("uls: ");
-    mx_printstr(oshibka);
-    mx_printerr(": No such file or directory");
-    mx_printchar('\n');
+    mx_printerr(oshibka);
+    mx_printerr(": No such file or directory\n");
     exit(1);
 }
 

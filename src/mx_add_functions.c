@@ -12,7 +12,7 @@ void mx_bubble_list_sort(t_list *start) {
         list = start;
         swapped = false;
         while (list->next != end){
-            if (mx_strcmp(list->data, list->next->data) > 0){
+            if (mx_strcmp(list->data, list->next->data) > 0) {
                 char* temp = list->data;
                 list->data = list->next->data;
                 list->next->data = temp;
@@ -74,16 +74,18 @@ void mx_print_size(int max, int size) {
 }
 
 
-int mx_total(t_list *spisok){
-    struct stat file_statistics;
-    int size = 0;
+int mx_total(t_list *spisok)                                {
+    struct stat file_statistics                             ;
+    int size = 0                                            ;
 
-    for (t_list *i =  spisok; i != NULL; i = i->next){
-        if (stat(i->data, &file_statistics) == -1) {
-            continue;
+    for (t_list *i = spisok; i != NULL; i = i->next)        {
+        if (stat(i->data, &file_statistics) == -1)          {
+            perror(i->data)                                 ;
+            continue                                        ;
+            
         }
-        size += file_statistics.st_blocks;
+        size += file_statistics.st_blocks                   ;
     }
 
-    return size;
+    return size                                             ;
 }
