@@ -13,7 +13,7 @@ void mx_full_ls_function(char* argv[], int argc) {
         mx_ls(spisok);
         closedir(dir);
     }
-    if (mx_strcmp(argv[1], "-l") == 0){
+    else if (mx_strcmp(argv[1], "-l") == 0){
         if (argc == 2){
             DIR *dir = opendir(".");
 

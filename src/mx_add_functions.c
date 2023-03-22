@@ -74,18 +74,18 @@ void mx_print_size(int max, int size) {
 }
 
 
-int mx_total(t_list *spisok)                                {
-    struct stat file_statistics                             ;
-    int size = 0                                            ;
+int mx_total(t_list *spisok){
+    struct stat file_statistics;
+    int size = 0;
 
-    for (t_list *i = spisok; i != NULL; i = i->next)        {
-        if (stat(i->data, &file_statistics) == -1)          {
-            perror(i->data)                                 ;
-            continue                                        ;
+    for (t_list *i = spisok; i != NULL; i = i->next){
+        if (stat(i->data, &file_statistics) == -1) {
+            perror(i->data);
+            continue;
             
         }
-        size += file_statistics.st_blocks                   ;
+        size += file_statistics.st_blocks;
     }
 
-    return size                                             ;
+    return size;
 }
