@@ -36,4 +36,3 @@ void mx_no_flags(t_list *spisok);
 
 
 
-

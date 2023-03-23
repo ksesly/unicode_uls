@@ -40,41 +40,41 @@ void mx_full_ls_function(char* argv[], int argc) {
         }
     }
     else if (mx_strcmp(argv[1], "-l") != 0){
-        t_list *spisok = NULL;
+        t_list *file_spisok = NULL;
+        t_list *dir_spisok = NULL;
         struct stat file_statistics;
         for (int i = 1; i < argc; i++){
             if (stat(argv[i], &file_statistics) == 0){
                 if (S_ISDIR(file_statistics.st_mode)) {
-                    mx_push_back(&spisok, argv[i]);
+                    mx_push_back(&dir_spisok, argv[i]);
                 }
                 else {
-                    mx_push_front(&spisok, argv[i]);
+                    mx_push_front(&file_spisok, argv[i]);
                 }
             }
             else {
                 mx_uncreated_file(argv[i]);
             }
         }
-        while (spisok != NULL){
-            stat(spisok->data, &file_statistics);
+        mx_bubble_list_sort(file_spisok);
+        mx_bubble_list_sort(dir_spisok);
+        while (file_spisok != NULL){
+            mx_printstr(file_spisok->data);
+            mx_printstr("  ");
+            file_spisok = file_spisok->next;
+        }
+        while (dir_spisok != NULL){
+            mx_printchar('\n');
+            
+            DIR *dir = opendir(dir_spisok->data);
 
-            if (S_ISDIR(file_statistics.st_mode)) {
-                mx_printchar('\n');
-                
-                DIR *dir = opendir(spisok->data);
-
-                mx_printstr(spisok->data);
-                mx_printstr(":\n");
-                t_list *sp = mx_return_spisok(dir);
-                mx_no_flags(sp);
-                mx_printchar('\n');
-                closedir(dir);
-            }
-            else {
-                mx_printstr(spisok->data);
-                mx_printstr("  ");
-            }
-            spisok = spisok->next;
+            mx_printstr(dir_spisok->data);
+            mx_printstr(":\n");
+            t_list *sp = mx_return_spisok(dir);
+            mx_no_flags(sp);
+            mx_printchar('\n');
+            closedir(dir);
+            dir_spisok = dir_spisok->next;
         }
     }
 }
