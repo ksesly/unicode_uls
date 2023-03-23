@@ -36,13 +36,14 @@ char* mx_trimtime(char* str) {
 }
 
 
-int mx_int_length(t_list *spisok) {
+int mx_int_length(t_list *spisok, char *path) {
     struct stat file_statistics;
     int max = 0;
+    char buff[200];
 
-    for (t_list *i =  spisok; i != NULL; i = i->next) {
-
-        if (stat(i->data, &file_statistics) == -1) continue;
+    for (t_list *i = spisok; i != NULL; i = i->next) {
+        sprintf(buff, "%s/%s", path, i->data);
+        if (stat(buff, &file_statistics) == -1) continue;
 
         int l = file_statistics.st_size;
         int temp = 0;
@@ -74,13 +75,15 @@ void mx_print_size(int max, int size) {
 }
 
 
-int mx_total(t_list *spisok){
+int mx_total(t_list *spisok, char *path){
+    char buff[200];
     struct stat file_statistics;
     int size = 0;
 
     for (t_list *i = spisok; i != NULL; i = i->next){
-        if (stat(i->data, &file_statistics) == -1) {
-            perror(i->data);
+        sprintf(buff, "%s/%s", path, i->data);
+        if (stat(buff, &file_statistics) == -1) {
+            perror(buff);
             continue;
             
         }

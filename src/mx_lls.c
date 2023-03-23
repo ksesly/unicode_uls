@@ -1,19 +1,20 @@
 #include "../inc/uls.h"
 
 
- void mx_lls(t_list *spisok) {
-
+ void mx_lls(t_list *spisok, char *path) {
+    char buff[200];
     mx_bubble_list_sort(spisok);
 
-    int max_size = mx_int_length(spisok);
+    int max_size = mx_int_length(spisok, path);
     struct stat file_statistics;
 
     mx_printstr("total ");
-    mx_printint(mx_total(spisok));
+    mx_printint(mx_total(spisok, path));
     mx_printchar('\n');
 
     for (t_list *i = spisok; i != NULL; i = i->next) {
-        if (stat(i->data, &file_statistics) == -1) continue;
+        sprintf(buff, "%s/%s", path, i->data);
+        if (stat(buff, &file_statistics) == -1) continue;
         mx_print_lls(file_statistics, max_size);
 
         // print the file name
