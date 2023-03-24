@@ -31,9 +31,10 @@ void mx_print_lls(struct stat file_statistics, int max);
 t_list *mx_return_spisok(DIR *dir);
 DIR *mx_opendir(char *s);
 void mx_no_flags(t_list *spisok);
-void mx_gls(t_list *spisok);
+void mx_gls(int argc, char* argv[]);
 
 //flags
 void mx_check_l(int argc, char* argv[]);
-void mx_check_G();
+void mx_check_G(int argc, char* argv[]);
+void mx_print_G(t_list *spisok, struct stat file_statistics);
 

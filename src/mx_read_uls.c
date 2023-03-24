@@ -14,17 +14,12 @@ void mx_full_ls_function(char* argv[], int argc) {
         closedir(dir);
     }
     else if (mx_strcmp(argv[1], "-G") == 0){
-        DIR *dir = opendir(".");
-        if (!dir) {
-            mx_uncreated_file("."); //dorabotat chtob (obrabotat posl argv)
-        }
-        t_list *spisok = mx_return_spisok(dir);
-        mx_gls(spisok);
-        closedir(dir);
+        mx_check_G(argc, argv);
     }
     else if (mx_strcmp(argv[1], "-l") == 0){
         mx_check_l(argc, argv);
     }
+
     else if (mx_strcmp(argv[1], "-l") != 0){
         t_list *file_spisok = NULL;
         t_list *dir_spisok = NULL;
