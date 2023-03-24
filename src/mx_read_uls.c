@@ -13,31 +13,17 @@ void mx_full_ls_function(char* argv[], int argc) {
         mx_ls(spisok);
         closedir(dir);
     }
+    else if (mx_strcmp(argv[1], "-G") == 0){
+        DIR *dir = opendir(".");
+        if (!dir) {
+            mx_uncreated_file("."); //dorabotat chtob (obrabotat posl argv)
+        }
+        t_list *spisok = mx_return_spisok(dir);
+        mx_gls(spisok);
+        closedir(dir);
+    }
     else if (mx_strcmp(argv[1], "-l") == 0){
-        if (argc == 2){
-            DIR *dir = opendir(".");
-
-            if (!dir) {
-                mx_uncreated_file("."); //dorabotat chtob (obrabotat posl argv)
-            }
-
-            t_list *spisok = mx_return_spisok(dir);
-            mx_lls(spisok, ".");
-            closedir(dir);
-        }
-        else if (argc == 3){
-            for (int i = 2; i < argc; i++){
-                DIR *dir = opendir(argv[i]);
-
-                if (!dir) {
-                    mx_uncreated_file(argv[i]); //dorabotat chtob (obrabotat posl argv)
-                }
-
-                t_list *spisok = mx_return_spisok(dir);
-                mx_lls(spisok, argv[i]);
-                closedir(dir);
-            }
-        }
+        mx_check_l(argc, argv);
     }
     else if (mx_strcmp(argv[1], "-l") != 0){
         t_list *file_spisok = NULL;
@@ -63,6 +49,7 @@ void mx_full_ls_function(char* argv[], int argc) {
             mx_printstr("  ");
             file_spisok = file_spisok->next;
         }
+        mx_printchar('\n');
         while (dir_spisok != NULL){
             mx_printchar('\n');
             
