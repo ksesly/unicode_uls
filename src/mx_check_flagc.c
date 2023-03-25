@@ -29,15 +29,14 @@ void mx_check_l(int argc, char* argv[]) {
 
 void mx_check_G(int argc, char* argv[]) {
     if (argc == 2) {
-        DIR *dir = opendir(".");
-        if (!dir) {
-            mx_uncreated_file("."); 
-        }
-        t_list *spisok = mx_return_spisok(dir);
-        mx_bubble_list_sort(spisok);
-        //mx_gls(argc, argv);
+        // DIR *dir = opendir(".");
+        // if (!dir) {
+        //     mx_uncreated_file("."); 
+        // }
+        t_list *spisok = mx_dir_man(".");
+        //mx_bubble_list_sort(spisok);
         mx_print_G(spisok, ".");
-        closedir(dir);
+        //closedir(dir);
     }
     else if (argc >= 3) {
         t_list *file_spisok = mx_list_file(argc, argv, 2);
@@ -47,4 +46,23 @@ void mx_check_G(int argc, char* argv[]) {
     }
 }
 
+void mx_check_a() {
+    DIR *dir = opendir(".");
+    if (!dir) {
+        mx_uncreated_file("."); //dorabotat chtob (obrabotat posl argv)
+    }
+    t_list *spisok = mx_return_spisok_with_dot(dir);
+    mx_print_column(spisok);
+    closedir(dir);
+}
+
+void mx_check_A() {
+    DIR *dir = opendir(".");
+    if (!dir) {
+        mx_uncreated_file("."); //dorabotat chtob (obrabotat posl argv)
+    }
+    t_list *spisok = mx_return_spisok_with_hiden(dir);
+    mx_print_column(spisok);
+    closedir(dir);
+}
 

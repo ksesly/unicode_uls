@@ -3,16 +3,16 @@
 void mx_print_dir_G(t_list *dir_spisok) {
     while (dir_spisok != NULL){
             mx_printchar('\n');
-            
-            DIR *dir = opendir(dir_spisok->data);
+            t_list *sp = mx_dir_man(dir_spisok->data);
+            //DIR *dir = opendir(dir_spisok->data);
 
             mx_printstr(dir_spisok->data);
             mx_printstr(":\n");
-            t_list *sp = mx_return_spisok(dir);
-            mx_bubble_list_sort(sp);
+            //t_list *sp = mx_return_spisok(dir);
+            //mx_bubble_list_sort(sp);
             mx_print_G(sp, dir_spisok->data);
             mx_printchar('\n');
-            closedir(dir);
+            //closedir(dir);
             dir_spisok = dir_spisok->next;
         }
     

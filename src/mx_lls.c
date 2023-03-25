@@ -3,7 +3,7 @@
 
  void mx_lls(t_list *spisok, char *path) {
     char buff[200];
-    mx_bubble_list_sort(spisok);
+    //mx_bubble_list_sort(spisok);
 
     int max_size = mx_int_length(spisok, path);
     struct stat file_statistics;
