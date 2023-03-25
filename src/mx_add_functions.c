@@ -132,3 +132,15 @@ t_list *mx_list_dir(int argc, char *argv[], int i){
     mx_bubble_list_sort(dir_spisok);
     return dir_spisok;
 }
+
+void mx_print_row(t_list *spisok){
+    for (t_list *i = spisok; i != NULL; i = i->next){
+        mx_printstr(mx_strcat(i->data, "\n"));
+    }
+}
+
+void mx_print_column(t_list *spisok){
+    for (t_list *i = spisok; i != NULL; i = i->next){
+        mx_printstr(mx_strcat(i->data, "  "));
+    }
+}

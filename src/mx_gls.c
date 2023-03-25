@@ -30,6 +30,7 @@ void mx_print_G(t_list *spisok, char *dir) {
         char *buff = mx_strdup(dir);
         mx_strcat(buff, "/");
         mx_strcat(buff, i->data);
+        printf("%s ", buff);
         
         if (stat(buff, &file_statistics) == 0){
             if (mx_strcmp(i->data, "Makefile") == 0) {

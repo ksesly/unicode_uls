@@ -24,6 +24,10 @@ void mx_print_size(int max_int, int size);
 int mx_total(t_list *spisok, char *path);
 t_list *mx_list_dir(int argc, char *argv[], int i);
 t_list *mx_list_file(int argc, char *argv[], int i);
+void mx_print_row(t_list *spisok);
+void mx_print_column(t_list *spisok);
+t_list *mx_return_spisok_with_dot(DIR *dir);
+t_list *mx_return_spisok_with_hiden(DIR *dir);
 
 //ls
 void mx_ls(t_list *spisok);
