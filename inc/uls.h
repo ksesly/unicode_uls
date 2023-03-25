@@ -22,6 +22,8 @@ void mx_print_file_access(struct stat file_statistics);
 int mx_int_length(t_list *spisok, char *path);
 void mx_print_size(int max_int, int size);
 int mx_total(t_list *spisok, char *path);
+t_list *mx_list_dir(int argc, char *argv[], int i);
+t_list *mx_list_file(int argc, char *argv[], int i);
 
 //ls
 void mx_ls(t_list *spisok);
@@ -29,12 +31,12 @@ void mx_lls(t_list *spisok, char *path);
 void mx_full_ls_function(char* argv[], int argc);
 void mx_print_lls(struct stat file_statistics, int max);
 t_list *mx_return_spisok(DIR *dir);
-DIR *mx_opendir(char *s);
+//DIR *mx_opendir(char *s);
 void mx_no_flags(t_list *spisok);
-void mx_gls(int argc, char* argv[]);
+void mx_print_dir_G(t_list *dir_spisok);
 
 //flags
 void mx_check_l(int argc, char* argv[]);
 void mx_check_G(int argc, char* argv[]);
-void mx_print_G(t_list *spisok, struct stat file_statistics);
+void mx_print_G(t_list *spisok, char *dir);
 

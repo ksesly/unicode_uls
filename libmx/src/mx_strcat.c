@@ -1,18 +1,18 @@
 #include "../inc/libmx.h"
 
 char *mx_strcat(char *s1, const char *s2) {
-    int i = 0;
-    int c = 0;
-    for ( i = 0; i < mx_strlen(s1); i++) {
-        if (s1[i] == '\0') {
-            continue;
-        }
+    char *p = s1;
+    
+    while (*p != '\0') { // находим конец s1
+        p++;
     }
-    for ( c = 0; c < mx_strlen(s2); c++) {
-        s1[i + c] = s2[c];
+    
+    while (*s2 != '\0') { // копируем символы из s2 в конец s1
+        *p++ = *s2++;
     }
-    s1[i + c] = '\0';
-    return (char *)s1;
-    return 0;
+    
+    *p = '\0'; // добавляем нулевой символ в конец
+    
+    return s1;
 }
 

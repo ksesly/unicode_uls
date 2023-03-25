@@ -21,24 +21,8 @@ void mx_full_ls_function(char* argv[], int argc) {
     }
 
     else if (mx_strcmp(argv[1], "-l") != 0){
-        t_list *file_spisok = NULL;
-        t_list *dir_spisok = NULL;
-        struct stat file_statistics;
-        for (int i = 1; i < argc; i++){
-            if (stat(argv[i], &file_statistics) == 0){
-                if (S_ISDIR(file_statistics.st_mode)) {
-                    mx_push_back(&dir_spisok, argv[i]);
-                }
-                else {
-                    mx_push_front(&file_spisok, argv[i]);
-                }
-            }
-            else {
-                mx_uncreated_file(argv[i]);
-            }
-        }
-        mx_bubble_list_sort(file_spisok);
-        mx_bubble_list_sort(dir_spisok);
+        t_list *file_spisok = mx_list_file(argc, argv, 1);
+        t_list *dir_spisok = mx_list_dir(argc, argv, 1);
         while (file_spisok != NULL){
             mx_printstr(file_spisok->data);
             mx_printstr("  ");
@@ -69,7 +53,7 @@ t_list *mx_return_spisok(DIR *dir){
            continue;
         mx_push_front(&spisok, head->d_name);
     }
-    mx_pop_back(&spisok);
+    mx_pop_back(&spisok); //VSTAVIT BUBLE SORT I YDALIT EGO VEZDE GDE WE PRIMENAYEM EGO POSLE 
     return spisok;
 }
 
