@@ -6,12 +6,11 @@ static void mx_format_error(void) {
     exit(1);
 }
 
-//a my berem tol`ko poslednuu chast directorii ili vsu?
+
 void mx_uncreated_file(char* oshibka) {
     mx_printerr("uls: ");
     mx_printerr(oshibka);
     mx_printerr(": No such file or directory\n");
-    //exit(1);
 }
 
 void mx_uls_errors_checker(int argc) {

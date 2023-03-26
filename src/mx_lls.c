@@ -3,7 +3,6 @@
 
  void mx_lls(t_list *spisok, char *path) {
     char buff[200];
-    //mx_bubble_list_sort(spisok);
 
     int max_size = mx_int_length(spisok, path);
     int max_number = mx_number_length(spisok, path);
@@ -33,10 +32,6 @@ void mx_print_lls(struct stat file_statistics, int max_size, int max_number) {
     // print the accesss
     mx_print_file_access(file_statistics);
     mx_printstr("  ");
-
-    // print the useness
-    // mx_printint(file_statistics.st_nlink);
-    // mx_printchar(' ');
 
     mx_print_size(max_number, file_statistics.st_nlink);
     mx_printchar(' ');

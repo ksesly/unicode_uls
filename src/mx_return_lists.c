@@ -9,7 +9,7 @@ t_list *mx_return_spisok(DIR *dir){
         mx_push_front(&spisok, head->d_name);
     }
     mx_pop_back(&spisok); 
-    mx_bubble_list_sort(spisok); //VSTAVIT BUBLE SORT I YDALIT EGO VEZDE GDE WE PRIMENAYEM EGO POSLE 
+    mx_bubble_list_sort(spisok); 
     return spisok;
 }
 

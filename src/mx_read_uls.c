@@ -37,14 +37,10 @@ void mx_full_ls_function(char* argv[], int argc) {
         while (dir_spisok != NULL){
             mx_printchar('\n');
             t_list  *sp = mx_dir_man(dir_spisok->data);
-            //DIR *dir = opendir(dir_spisok->data);
-
             mx_printstr(dir_spisok->data);
             mx_printstr(":\n");
-            //t_list *sp = mx_return_spisok(dir);
             mx_no_flags(sp);
             mx_printchar('\n');
-            //closedir(dir);
             dir_spisok = dir_spisok->next;
         }
     }
