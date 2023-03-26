@@ -170,15 +170,28 @@ t_list *mx_list_dir(int argc, char *argv[], int i){
 
 void mx_print_row(t_list *spisok){
     for (t_list *i = spisok; i != NULL; i = i->next){
-        mx_printstr(mx_strcat(i->data, "\n"));
+            mx_printstr(mx_strcat(i->data, "\n"));
     }
 }
 
 void mx_print_column(t_list *spisok){
     for (t_list *i = spisok; i != NULL; i = i->next){
-        mx_printstr(mx_strcat(i->data, "  "));
+        if (i->next == NULL) 
+            mx_printstr(mx_strcat(i->data, "\n"));
+        
+        else 
+            mx_printstr(mx_strcat(i->data, "  "));
     }
-    mx_printchar('\n');
+}
+
+void mx_print_with_coma(t_list *spisok) {
+    for (t_list *i = spisok; i != NULL; i = i->next) {
+        if (i->next == NULL) 
+            mx_printstr(mx_strcat(i->data, "\n"));
+        
+        else 
+            mx_printstr(mx_strcat(i->data, ", "));
+    }
 }
 
 t_list *mx_dir_man(char* direct) {

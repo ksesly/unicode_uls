@@ -56,5 +56,8 @@ void mx_check_col() {
     mx_print_column(spisok);
 }
 
-
+void mx_check_m() {
+    t_list *spisok = mx_dir_man(".");
+    mx_print_with_coma(spisok);
+}
 
