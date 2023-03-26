@@ -1,15 +1,6 @@
 #include "../inc/uls.h"
 
 
-t_list *mx_dir_man(char* direct) {
-    DIR *dir = opendir(direct);
-    if (!dir) {
-        mx_uncreated_file(direct); 
-    }
-    t_list *spisok = mx_return_spisok(dir);
-    closedir(dir);
-    return spisok;
-}
 
 void mx_full_ls_function(char* argv[], int argc) {
     if (argc == 1){
