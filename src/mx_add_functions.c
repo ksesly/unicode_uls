@@ -58,6 +58,27 @@ int mx_int_length(t_list *spisok, char *path) {
     return max;
 }
 
+int mx_number_length(t_list *spisok, char *path) {
+    struct stat file_statistics;
+    int max = 0;
+    char buff[200];
+
+    for (t_list *i = spisok; i != NULL; i = i->next) {
+        sprintf(buff, "%s/%s", path, i->data);
+        if (stat(buff, &file_statistics) == -1) continue;
+
+        int l = file_statistics.st_nlink;
+        int temp = 0;
+        while (l > 0){
+            l /= 10;
+            temp++;
+        }
+        if (temp > max)
+            max = temp;
+        
+    }
+    return max;
+}
 
 void mx_print_size(int max, int size) {
     int s = size;
@@ -71,6 +92,20 @@ void mx_print_size(int max, int size) {
     for (; temp < max; temp++)
         mx_printchar(' ');
 
+    mx_printint(size);
+}
+
+void mx_print_number(int max, int size) {
+    int s = size;
+    int temp = 0;
+
+    while (s > 0){
+        s /= 10;
+        temp++;
+    }
+
+    for (; temp < max; temp++)
+        mx_printchar(' ');
     mx_printint(size);
 }
 

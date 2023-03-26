@@ -29,12 +29,13 @@ void mx_print_column(t_list *spisok);
 t_list *mx_return_spisok_with_dot(DIR *dir);
 t_list *mx_return_spisok_with_hiden(DIR *dir);
 t_list *mx_dir_man(char* direct);
+int mx_number_length(t_list *spisok, char *path);
 
 //ls
 void mx_ls(t_list *spisok);
 void mx_lls(t_list *spisok, char *path);
 void mx_full_ls_function(char* argv[], int argc);
-void mx_print_lls(struct stat file_statistics, int max);
+void mx_print_lls(struct stat file_statistics, int max_size, int max_number);
 t_list *mx_return_spisok(DIR *dir);
 void mx_no_flags(t_list *spisok);
 void mx_print_dir_G(t_list *dir_spisok);

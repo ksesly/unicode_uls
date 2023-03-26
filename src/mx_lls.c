@@ -6,6 +6,7 @@
     //mx_bubble_list_sort(spisok);
 
     int max_size = mx_int_length(spisok, path);
+    int max_number = mx_number_length(spisok, path);
     struct stat file_statistics;
 
     mx_printstr("total ");
@@ -15,7 +16,7 @@
     for (t_list *i = spisok; i != NULL; i = i->next) {
         sprintf(buff, "%s/%s", path, i->data);
         if (stat(buff, &file_statistics) == -1) continue;
-        mx_print_lls(file_statistics, max_size);
+        mx_print_lls(file_statistics, max_size, max_number);
 
         // print the file name
         mx_printstr(i->data);
@@ -24,7 +25,7 @@
 }
 
 
-void mx_print_lls(struct stat file_statistics, int max_size) {
+void mx_print_lls(struct stat file_statistics, int max_size, int max_number) {
 
     struct passwd *pw;
     struct group *grp;
@@ -34,7 +35,10 @@ void mx_print_lls(struct stat file_statistics, int max_size) {
     mx_printstr("  ");
 
     // print the useness
-    mx_printint(file_statistics.st_nlink);
+    // mx_printint(file_statistics.st_nlink);
+    // mx_printchar(' ');
+
+    mx_print_size(max_number, file_statistics.st_nlink);
     mx_printchar(' ');
 
     // print the owner`s id
