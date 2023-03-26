@@ -204,3 +204,42 @@ t_list *mx_dir_man(char* direct) {
     return spisok;
 }
 
+void mx_ebatb_I_smart_peredal_function_in_other_function(void (*f)(t_list *), int argc, char *argv[], int nachalo){
+    bool flag = false;
+        t_list *file_spisok = mx_list_file(argc, argv, nachalo);
+        t_list *dir_spisok = mx_list_dir(argc, argv, nachalo);
+        if (dir_spisok != NULL && dir_spisok->next == NULL && file_spisok == NULL) {
+            t_list *sp = mx_dir_man(dir_spisok->data);
+            f(sp);
+            //mx_printchar('\n');
+        }
+        if (file_spisok != NULL) {
+            for (t_list *i = file_spisok; i != NULL; i = i->next){
+                if (i->next == NULL){
+                    mx_printstr(i->data);
+                    mx_printstr("\n");
+                }
+                else {
+                    mx_printstr(i->data);
+                    mx_printstr("  ");
+                }
+            }
+            flag = true;
+        }     
+
+        if (dir_spisok != NULL && (file_spisok != NULL || dir_spisok->next != NULL)) {
+            if (flag)
+                mx_printchar('\n');
+            while (dir_spisok != NULL){
+                t_list  *sp = mx_dir_man(dir_spisok->data);
+                mx_printstr(dir_spisok->data);
+                mx_printstr(":\n");
+                f(sp);
+                //mx_printchar('\n');
+                if (dir_spisok->next != NULL) {
+                    mx_printchar('\n');
+                }
+                dir_spisok = dir_spisok->next;
+            }
+        }
+}

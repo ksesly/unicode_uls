@@ -5,7 +5,7 @@
 void mx_ls(t_list *spisok)                                  {
     
     for (t_list *i = spisok; i != NULL; i = i->next)        {
-        if (i->data == NULL)
+        if (i->next == NULL)
             mx_printstr(mx_strcat(i->data, "\n"))           ;
         else 
             mx_printstr(mx_strcat(i->data, "\t"))           ;
@@ -16,7 +16,7 @@ void mx_ls(t_list *spisok)                                  {
 void mx_no_flags(t_list *spisok)                            {             
     
     for (t_list *i = spisok; i != NULL; i = i->next)        {
-        if (i->data == NULL)
+        if (i->next == NULL)
             mx_printstr(mx_strcat(i->data, "\n"))           ;
         else
             mx_printstr(mx_strcat(i->data, "  "))           ;
