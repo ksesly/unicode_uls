@@ -45,4 +45,7 @@ void mx_check_l(int argc, char* argv[]);
 void mx_check_G(int argc, char* argv[]);
 void mx_check_a();
 void mx_check_A();
+void mx_check_row();
+void mx_check_col();
+
 

@@ -23,24 +23,10 @@ void mx_full_ls_function(char* argv[], int argc) {
         mx_check_l(argc, argv);
     }
     else if (mx_strcmp(argv[1], "-1") == 0){
-        DIR *dir = opendir(".");
-        if (!dir) {
-            mx_uncreated_file("."); 
-        }
-        t_list *spisok = mx_return_spisok(dir);
-        //mx_bubble_list_sort(spisok);
-        mx_print_row(spisok);
-        closedir(dir);
+        mx_check_row();
     }
     else if (mx_strcmp(argv[1], "-C") == 0){
-        DIR *dir = opendir(".");
-        if (!dir) {
-            mx_uncreated_file("."); 
-        }
-        t_list *spisok = mx_return_spisok(dir);
-        //mx_bubble_list_sort(spisok);
-        mx_print_column(spisok);
-        closedir(dir);
+        mx_check_col();
     }
     else if (mx_strcmp(argv[1], "-a") == 0){
         mx_check_a();

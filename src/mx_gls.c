@@ -4,15 +4,10 @@ void mx_print_dir_G(t_list *dir_spisok) {
     while (dir_spisok != NULL){
             mx_printchar('\n');
             t_list *sp = mx_dir_man(dir_spisok->data);
-            //DIR *dir = opendir(dir_spisok->data);
-
             mx_printstr(dir_spisok->data);
             mx_printstr(":\n");
-            //t_list *sp = mx_return_spisok(dir);
-            //mx_bubble_list_sort(sp);
             mx_print_G(sp, dir_spisok->data);
             mx_printchar('\n');
-            //closedir(dir);
             dir_spisok = dir_spisok->next;
         }
     
@@ -30,7 +25,6 @@ void mx_print_G(t_list *spisok, char *dir) {
         char *buff = mx_strdup(dir);
         mx_strcat(buff, "/");
         mx_strcat(buff, i->data);
-        printf("%s ", buff);
         
         if (stat(buff, &file_statistics) == 0){
             if (mx_strcmp(i->data, "Makefile") == 0) {

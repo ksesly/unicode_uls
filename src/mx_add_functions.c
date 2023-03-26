@@ -143,4 +143,5 @@ void mx_print_column(t_list *spisok){
     for (t_list *i = spisok; i != NULL; i = i->next){
         mx_printstr(mx_strcat(i->data, "  "));
     }
+    mx_printchar('\n');
 }
