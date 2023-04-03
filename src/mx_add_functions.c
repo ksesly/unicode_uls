@@ -42,7 +42,7 @@ int mx_int_length(t_list *spisok, char *path) {
     char buff[200];
 
     for (t_list *i = spisok; i != NULL; i = i->next) {
-        sprintf(buff, "%s/%s", path, i->data);
+        sprintf(buff, "%s/%s", path, i->data);              //CHANGE
         if (stat(buff, &file_statistics) == -1) continue;
 
         int l = file_statistics.st_size;
@@ -64,7 +64,7 @@ int mx_number_length(t_list *spisok, char *path) {
     char buff[200];
 
     for (t_list *i = spisok; i != NULL; i = i->next) {
-        sprintf(buff, "%s/%s", path, i->data);
+        sprintf(buff, "%s/%s", path, i->data);              //CHANGE
         if (stat(buff, &file_statistics) == -1) continue;
 
         int l = file_statistics.st_nlink;
@@ -170,24 +170,37 @@ t_list *mx_list_dir(int argc, char *argv[], int i){
 
 void mx_print_row(t_list *spisok){
     for (t_list *i = spisok; i != NULL; i = i->next){
-        mx_printstr(mx_strcat(i->data, "\n"));
+            mx_printstr(mx_strcat(i->data, "\n"));
     }
 }
 
 void mx_print_column(t_list *spisok){
     for (t_list *i = spisok; i != NULL; i = i->next){
-        mx_printstr(mx_strcat(i->data, "  "));
+        if (i->next == NULL) 
+            mx_printstr(mx_strcat(i->data, "\n"));
+        
+        else 
+            mx_printstr(mx_strcat(i->data, "  "));
     }
-    mx_printchar('\n');
 }
 
-t_list *mx_dir_man(char* direct) {
-    DIR *dir = opendir(direct);
-    if (!dir) {
-        mx_uncreated_file(direct); 
+void mx_print_with_coma(t_list *spisok) {
+    for (t_list *i = spisok; i != NULL; i = i->next) {
+        if (i->next == NULL) 
+            mx_printstr(mx_strcat(i->data, "\n"));
+        
+        else 
+            mx_printstr(mx_strcat(i->data, ", "));
     }
-    t_list *spisok = mx_return_spisok(dir);
-    closedir(dir);
-    return spisok;
 }
+
+// t_list *mx_dir_man(char* direct) {
+//     DIR *dir = opendir(direct);
+//     if (!dir) {
+//         mx_uncreated_file(direct); 
+//     }
+//     t_list *spisok = mx_return_spisok(dir);
+//     closedir(dir);
+//     return spisok;
+//}
 

@@ -5,15 +5,21 @@
 void mx_ls(t_list *spisok)                                  {
     
     for (t_list *i = spisok; i != NULL; i = i->next)        {
-        mx_printstr(mx_strcat(i->data, "\t"))               ;
+        if (i->data == NULL)
+            mx_printstr(mx_strcat(i->data, "\n"))           ;
+        else 
+            mx_printstr(mx_strcat(i->data, "\t"))           ;
                                                             }
-    mx_printchar('\n')                                      ;
+    //mx_printchar('\n')                                    ;
                                                             }
 
-void mx_no_flags(t_list *spisok)                            {                            ;
+void mx_no_flags(t_list *spisok)                            {             
     
     for (t_list *i = spisok; i != NULL; i = i->next)        {
-        mx_printstr(mx_strcat(i->data, "  "))               ;
-    }
+        if (i->data == NULL)
+            mx_printstr(mx_strcat(i->data, "\n"))           ;
+        else
+            mx_printstr(mx_strcat(i->data, "  "))           ;
+                                                            }
                                                             }
 

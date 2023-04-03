@@ -28,7 +28,7 @@ void mx_print_row(t_list *spisok);
 void mx_print_column(t_list *spisok);
 t_list *mx_return_spisok_with_dot(DIR *dir);
 t_list *mx_return_spisok_with_hiden(DIR *dir);
-t_list *mx_dir_man(char* direct);
+//t_list *mx_dir_man(char* direct);
 int mx_number_length(t_list *spisok, char *path);
 
 //ls
@@ -40,6 +40,7 @@ t_list *mx_return_spisok(DIR *dir);
 void mx_no_flags(t_list *spisok);
 void mx_print_dir_G(t_list *dir_spisok);
 void mx_print_G(t_list *spisok, char *dir);
+void mx_print_with_coma(t_list *spisok);
 
 //flags
 void mx_check_l(int argc, char* argv[]);
@@ -48,5 +49,6 @@ void mx_check_a();
 void mx_check_A();
 void mx_check_row();
 void mx_check_col();
+void mx_check_m();
 
 

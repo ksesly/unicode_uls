@@ -2,13 +2,21 @@
 
 void mx_print_dir_G(t_list *dir_spisok) {
     while (dir_spisok != NULL){
-            mx_printchar('\n');
-            t_list *sp = mx_dir_man(dir_spisok->data);
-            mx_printstr(dir_spisok->data);
-            mx_printstr(":\n");
-            mx_print_G(sp, dir_spisok->data);
-            mx_printchar('\n');
-            dir_spisok = dir_spisok->next;
+        mx_printchar('\n');
+
+        DIR *dir = opendir(dir_spisok->data);
+        if (!dir) {
+            mx_uncreated_file(dir_spisok->data); 
+        }
+        t_list *sp = mx_return_spisok(dir);
+
+        //t_list *sp = mx_dir_man(dir_spisok->data);
+        mx_printstr(dir_spisok->data);
+        mx_printstr(":\n");
+        mx_print_G(sp, dir_spisok->data);
+        mx_printchar('\n');
+        dir_spisok = dir_spisok->next;
+        closedir(dir);
         }
     
 }
@@ -25,7 +33,7 @@ void mx_print_G(t_list *spisok, char *dir) {
         mx_strcat(buff, "/");
         mx_strcat(buff, i->data);
         
-        if (stat(buff, &file_statistics) == 0){
+        if (lstat(buff, &file_statistics) == 0){
             if (mx_strcmp(i->data, "Makefile") == 0) {
                 mx_printstr(i->data);
                 mx_printstr("  "); 
