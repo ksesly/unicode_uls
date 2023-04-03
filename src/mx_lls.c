@@ -7,17 +7,19 @@
     int max_size = mx_int_length(spisok, path);
     int max_number = mx_number_length(spisok, path);
     struct stat file_statistics;
-
-    mx_printstr("total ");
-    mx_printint(mx_total(spisok, path));
-    mx_printchar('\n');
-
+    
+    if (path[0] != '.'){
+        mx_printstr("total ");
+        mx_printint(mx_total(spisok, path));
+        mx_printchar('\n');
+    }
+    
     for (t_list *i = spisok; i != NULL; i = i->next) {
         sprintf(buff, "%s/%s", path, i->data);
         if (stat(buff, &file_statistics) == -1) continue;
         mx_print_lls(file_statistics, max_size, max_number);
-
         // print the file name
+
         mx_printstr(i->data);
         mx_printchar('\n');
     }
