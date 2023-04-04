@@ -31,6 +31,7 @@ t_list *mx_return_spisok_with_hiden(DIR *dir);
 //t_list *mx_dir_man(char* direct);
 int mx_number_length(t_list *spisok, char *path);
 void mx_ebatb_I_smart_peredal_function_in_other_function(void (*f)(t_list *), int argc, char *argv[], int nachalo);
+void mx_print_total(t_list *spisok, char *path);
 
 //ls
 void mx_ls(t_list *spisok);

@@ -2,20 +2,21 @@
 
 
  void mx_lls(t_list *spisok, char *path) {
-    char buff[200];
+    // char buff[200];
 
     int max_size = mx_int_length(spisok, path);
     int max_number = mx_number_length(spisok, path);
     struct stat file_statistics;
     
     if (path[0] != '.'){
-        mx_printstr("total ");
-        mx_printint(mx_total(spisok, path));
-        mx_printchar('\n');
+        mx_print_total(spisok, path);
     }
     
     for (t_list *i = spisok; i != NULL; i = i->next) {
-        sprintf(buff, "%s/%s", path, i->data);
+        char *buff = mx_strdup(path);
+        mx_strcat(buff, "/");
+        mx_strcat(buff, i->data);
+        // sprintf(buff, "%s/%s", path, i->data);
         if (stat(buff, &file_statistics) == -1) continue;
         mx_print_lls(file_statistics, max_size, max_number);
         // print the file name

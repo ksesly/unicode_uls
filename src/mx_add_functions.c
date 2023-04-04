@@ -117,11 +117,11 @@ int mx_total(t_list *spisok, char *path){
 
     for (t_list *i = spisok; i != NULL; i = i->next){
         sprintf(buff, "%s/%s", path, i->data);
-        // if (stat(buff, &file_statistics) == -1) {
-        //     perror(buff);
-        //     continue;
+        if (stat(buff, &file_statistics) == -1) {
+            perror(buff);
+            continue;
             
-        // }
+        }
         size += file_statistics.st_blocks;
     }
 
@@ -250,3 +250,8 @@ void mx_ebatb_I_smart_peredal_function_in_other_function(void (*f)(t_list *), in
         }
 }
 
+void mx_print_total(t_list *spisok, char *path){
+    mx_printstr("total ");
+    mx_printint(mx_total(spisok, path));
+    mx_printchar('\n');
+}
