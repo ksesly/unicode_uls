@@ -117,11 +117,11 @@ int mx_total(t_list *spisok, char *path){
 
     for (t_list *i = spisok; i != NULL; i = i->next){
         sprintf(buff, "%s/%s", path, i->data);
-        if (stat(buff, &file_statistics) == -1) {
-            perror(buff);
-            continue;
+        // if (stat(buff, &file_statistics) == -1) {
+        //     perror(buff);
+        //     continue;
             
-        }
+        // }
         size += file_statistics.st_blocks;
     }
 
@@ -181,19 +181,6 @@ void mx_print_column(t_list *spisok){
         
         else 
             mx_printstr(mx_strcat(i->data, "  "));
-<<<<<<< HEAD
-=======
-    }
-}
-
-void mx_print_with_coma(t_list *spisok) {
-    for (t_list *i = spisok; i != NULL; i = i->next) {
-        if (i->next == NULL) 
-            mx_printstr(mx_strcat(i->data, "\n"));
-        
-        else 
-            mx_printstr(mx_strcat(i->data, ", "));
->>>>>>> 306974fefce8f8989fd1762bdba8794c942ab9e3
     }
 }
 
@@ -207,25 +194,24 @@ void mx_print_with_coma(t_list *spisok) {
     }
 }
 
-<<<<<<< HEAD
-// t_list *mx_dir_man(char* direct) {
-//     DIR *dir = opendir(direct);
-//     if (!dir) {
-//         mx_uncreated_file(direct); 
-//     }
-//     t_list *spisok = mx_return_spisok(dir);
-//     closedir(dir);
-//     return spisok;
-//}
 
-=======
+
 void mx_ebatb_I_smart_peredal_function_in_other_function(void (*f)(t_list *), int argc, char *argv[], int nachalo){
     bool flag = false;
         t_list *file_spisok = mx_list_file(argc, argv, nachalo);
         t_list *dir_spisok = mx_list_dir(argc, argv, nachalo);
         if (dir_spisok != NULL && dir_spisok->next == NULL && file_spisok == NULL) {
-            t_list *sp = mx_dir_man(dir_spisok->data);
+
+            DIR *dir = opendir(dir_spisok->data);
+            if (!dir) {
+                mx_uncreated_file(dir_spisok->data); 
+            }
+            t_list *sp = mx_return_spisok(dir);
+
+            
+            //t_list *sp = mx_dir_man(dir_spisok->data);
             f(sp);
+            closedir(dir);
             //mx_printchar('\n');
         }
         if (file_spisok != NULL) {
@@ -246,7 +232,11 @@ void mx_ebatb_I_smart_peredal_function_in_other_function(void (*f)(t_list *), in
             if (flag)
                 mx_printchar('\n');
             while (dir_spisok != NULL){
-                t_list  *sp = mx_dir_man(dir_spisok->data);
+                DIR *dir = opendir(dir_spisok->data);
+                if (!dir) {
+                    mx_uncreated_file(dir_spisok->data); 
+                }
+                t_list *sp = mx_return_spisok(dir);
                 mx_printstr(dir_spisok->data);
                 mx_printstr(":\n");
                 f(sp);
@@ -255,7 +245,8 @@ void mx_ebatb_I_smart_peredal_function_in_other_function(void (*f)(t_list *), in
                     mx_printchar('\n');
                 }
                 dir_spisok = dir_spisok->next;
+                closedir(dir);
             }
         }
 }
->>>>>>> 306974fefce8f8989fd1762bdba8794c942ab9e3
+

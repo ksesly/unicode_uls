@@ -42,7 +42,7 @@ void mx_full_ls_function(char* argv[], int argc) {
         mx_check_A();
     }
     else if (mx_strcmp(argv[1], "-l") != 0){
-<<<<<<< HEAD
+
         t_list *file_spisok = mx_list_file(argc, argv, 1);
         t_list *dir_spisok = mx_list_dir(argc, argv, 1);
         if (dir_spisok->next == NULL && file_spisok->data == NULL) {
@@ -82,7 +82,7 @@ void mx_full_ls_function(char* argv[], int argc) {
                 dir_spisok = dir_spisok->next;
             }
         }
-=======
+
         // bool flag = false;
         // t_list *file_spisok = mx_list_file(argc, argv, 1);
         // t_list *dir_spisok = mx_list_dir(argc, argv, 1);
@@ -121,7 +121,7 @@ void mx_full_ls_function(char* argv[], int argc) {
         //     }
         // }
         mx_ebatb_I_smart_peredal_function_in_other_function(&mx_print_column, argc, argv, 1);
->>>>>>> 306974fefce8f8989fd1762bdba8794c942ab9e3
+
     }
 }
 

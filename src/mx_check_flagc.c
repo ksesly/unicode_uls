@@ -20,14 +20,14 @@ void mx_check_l(int argc, char* argv[]) {
         t_list *dir_list = NULL;
         struct stat file_statistics;
         for (int i = 2; i < argc; i++){
-<<<<<<< HEAD
             DIR *dir = opendir(".");
             if (!dir) {
                 mx_uncreated_file("."); 
             }
             t_list *spisok = mx_return_spisok(dir);
-            mx_lls(spisok, argv[i]);
-=======
+            //mx_printstr("hell111");
+            //mx_lls(spisok, argv[i]);
+
             if (stat(argv[i], &file_statistics) == 0){
                 if (S_ISDIR(file_statistics.st_mode)) {
                     mx_push_front(&dir_list, argv[i]);
@@ -43,6 +43,7 @@ void mx_check_l(int argc, char* argv[]) {
         mx_bubble_list_sort(file_list);
         mx_bubble_list_sort(dir_list);
         if (file_list != NULL)
+            //mx_printstr("hell");
             mx_lls(file_list, ".");
         bool flag = false; 
         if (dir_list != NULL && dir_list->next != NULL)
@@ -53,9 +54,10 @@ void mx_check_l(int argc, char* argv[]) {
                 mx_printstr(dir_list->data);
                 mx_printstr(":\n");
             }
+
             DIR *dir = opendir(dir_list->data);
+            //mx_printstr("hell");
             mx_lls(mx_return_spisok(dir), dir_list->data);
->>>>>>> 306974fefce8f8989fd1762bdba8794c942ab9e3
             closedir(dir);
         }
     }
@@ -123,7 +125,6 @@ void mx_check_col() {
 }
 
 void mx_check_m() {
-<<<<<<< HEAD
     DIR *dir = opendir(".");
     if (!dir) {
         mx_uncreated_file("."); 
@@ -131,9 +132,5 @@ void mx_check_m() {
     t_list *spisok = mx_return_spisok(dir);
     mx_print_with_coma(spisok);
     closedir(dir);
-=======
-    t_list *spisok = mx_dir_man(".");
-    mx_print_with_coma(spisok);
->>>>>>> 306974fefce8f8989fd1762bdba8794c942ab9e3
 }
 
