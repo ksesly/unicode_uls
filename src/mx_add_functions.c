@@ -176,11 +176,16 @@ void mx_print_row(t_list *spisok){
 
 void mx_print_column(t_list *spisok){
     for (t_list *i = spisok; i != NULL; i = i->next){
-        if (i->next == NULL) 
-            mx_printstr(mx_strcat(i->data, "\n"));
-        
-        else 
-            mx_printstr(mx_strcat(i->data, "  "));
+        if (i->next == NULL){
+            char *buff = mx_strdup(i->data);
+            mx_printstr(buff);
+            mx_printstr("\n");
+        }
+        else{
+            char *buff = mx_strdup(i->data);
+            mx_printstr(buff);
+            mx_printstr("  ");
+        }
     }
 }
 

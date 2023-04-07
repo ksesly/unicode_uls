@@ -1,7 +1,7 @@
 CC = clang
 CFLAGS = -c -std=c11 -Wall -Wextra -Werror -Wpedantic -Iinc
 SOURCES = $(wildcard src/*.c)
-OBJECTS = $(SOURCES:src/%.c=obj/%.o)
+OBJECTS = $(SOURCES:src/%.c=obj/%.o) 
 OUT = libmx.a
 
 all: $(OUT)

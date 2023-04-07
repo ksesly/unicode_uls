@@ -10,6 +10,7 @@
 #include <grp.h>
 #include <stdio.h>
 #include <errno.h>
+#include <string.h>
 
 //errors
 void mx_uls_errors_checker(int argc);
@@ -53,4 +54,7 @@ void mx_check_row();
 void mx_check_col();
 void mx_check_m();
 
-
+//y-ydachi
+void mx_Rls(int argc, char *argv[]);
+void mx_tipa_recyrsia(char *path);
+void mx_Rls(int argc, char *argv[]);

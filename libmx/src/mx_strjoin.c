@@ -1,20 +1,17 @@
 #include "../inc/libmx.h"
 
 char *mx_strjoin(char const *s1, char const *s2) {
-    if (s1 == NULL && s2 == NULL)
-        return NULL;
-    if (s2 == NULL)
-        return (char *)s1;
-    if (s1 == NULL)
-        return (char *)s2;
-    char *temp = mx_strnew(*s1 + *s2);
-    int let = 0;
-    temp = mx_strdup(s1);
-    mx_strcat(temp, s2);
-    while (temp[let]) 
-        let++;
-    temp[let] = '\0';
-    return temp;
+    if (s1 && s2){
+        int l1 = mx_strlen(s1);
+        int l2 = mx_strlen(s2);
+        char *arr = mx_strnew(l1 + l2);
+        arr = mx_strdup(s1);
+        arr = mx_strcat(arr, s2);
+        return arr;
+    }
+    else if(s1) return mx_strdup(s1);
+    else if(s2) return mx_strdup(s2);
+    else return NULL;
 }
 
 
