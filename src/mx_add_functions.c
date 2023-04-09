@@ -189,6 +189,61 @@ void mx_print_column(t_list *spisok){
     }
 }
 
+void mx_print_columnnnnnnnn(t_list *spisok) {
+    struct winsize w;
+    ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+    int num_files = 0;
+    char **buffer = NULL;
+
+    for (t_list *i = spisok; i != NULL; i = i->next){
+        num_files++;
+        //mx_printstr("sukasukasuka");
+        buffer = mx_realloc(buffer, sizeof(char *) * num_files);
+        buffer[num_files - 1] = mx_strdup(i->data);
+    }
+
+    int max_len = 0;
+    for (t_list *i = spisok; i != NULL; i = i->next) {
+        int len = mx_strlen(i->data);
+        if (len > max_len) {
+            max_len = len;
+        }
+    }
+
+    int columns = w.ws_col / (max_len + 1);
+
+
+    int rows = (num_files + columns - 1) / columns; 
+
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < columns; j++) {
+            int index = i + j * rows; 
+
+            if (index >= num_files) {
+                break;
+            }
+
+            char *str = mx_strdup(buffer[index]); 
+            int length = mx_strlen(str);
+
+            for (int k = length; k <= max_len + 2; k++) { 
+                mx_strcat(str, " ");
+                //mx_strcat(str, " ");
+
+            }
+
+            write(STDOUT_FILENO, str, mx_strlen(str)); 
+
+        }
+        mx_printchar('\n');
+    }
+
+    for (int i = 0; i < num_files; i++) {
+        free(buffer[i]);
+    }
+    free(buffer);
+}
+
 void mx_print_with_coma(t_list *spisok) {
     for (t_list *i = spisok; i != NULL; i = i->next) {
         if (i->next == NULL) 
@@ -260,3 +315,5 @@ void mx_print_total(t_list *spisok, char *path){
     mx_printint(mx_total(spisok, path));
     mx_printchar('\n');
 }
+
+

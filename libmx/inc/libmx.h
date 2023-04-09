@@ -7,7 +7,7 @@
 #include <stdbool.h>
 #include <fcntl.h>
 //#include <malloc.h>
-//#include <malloc/malloc.h>
+#include <malloc/malloc.h>
 #include <string.h>
 
 
@@ -58,6 +58,7 @@ void *mx_memmem(const void *big, size_t big_len, const void *little, size_t litt
 void *mx_memmove(void *dst, const void *src, size_t len);
 void mx_printerr(const char *s);
 char *mx_itoa(long long number);
+void *mx_realloc(void *ptr, size_t size);
 
 
 typedef struct s_list {

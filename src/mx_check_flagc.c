@@ -1,7 +1,7 @@
 #include "../inc/uls.h"
 
 
-//ne rabotaet vse ravno // uje rabotaet
+//ne rabotaet vse ravno
 
 
 void mx_check_l(int argc, char* argv[]) {
@@ -11,7 +11,6 @@ void mx_check_l(int argc, char* argv[]) {
             mx_uncreated_file("."); 
         }
         t_list *spisok = mx_return_spisok(dir);
-        mx_print_total(spisok, ".");
         mx_lls(spisok, ".");
         closedir(dir);
         //return spisok;
@@ -25,9 +24,9 @@ void mx_check_l(int argc, char* argv[]) {
             if (!dir) {
                 mx_uncreated_file("."); 
             }
-            //t_list *spisok = mx_return_spisok(dir);
+            t_list *spisok = mx_return_spisok(dir);
             //mx_printstr("hell111");
-            //mx_lls(spisok, argv[i]);
+            mx_lls(spisok, argv[i]);
 
             if (stat(argv[i], &file_statistics) == 0){
                 if (S_ISDIR(file_statistics.st_mode)) {
@@ -44,27 +43,16 @@ void mx_check_l(int argc, char* argv[]) {
         mx_bubble_list_sort(file_list);
         mx_bubble_list_sort(dir_list);
         if (file_list != NULL)
-            //mx_printstr("help");
+            //mx_printstr("hell");
             mx_lls(file_list, ".");
         bool flag = false; 
-        bool flag1 = false;
         if (dir_list != NULL && dir_list->next != NULL)
             flag = true;
         for(; dir_list != NULL; dir_list = dir_list->next){
-            if (file_list != NULL){
+            if (flag){
                 mx_printstr("\n");
                 mx_printstr(dir_list->data);
                 mx_printstr(":\n");
-            }
-            else if (flag && flag1){
-                mx_printstr("\n");
-                mx_printstr(dir_list->data);
-                mx_printstr(":\n");
-            }
-            else if (flag && !flag1){
-                mx_printstr(dir_list->data);
-                mx_printstr(":\n");
-                flag1 = true;
             }
 
             DIR *dir = opendir(dir_list->data);

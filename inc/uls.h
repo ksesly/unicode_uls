@@ -4,6 +4,7 @@
 #include <dirent.h> 
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <sys/ioctl.h>
 #include <unistd.h>
 #include <pwd.h>
 #include <time.h>
@@ -58,3 +59,5 @@ void mx_check_m();
 void mx_Rls(int argc, char *argv[]);
 void mx_tipa_recyrsia(char *path);
 void mx_Rls(int argc, char *argv[]);
+void mx_print_columnnnnnnnn(t_list *spisok);
+
