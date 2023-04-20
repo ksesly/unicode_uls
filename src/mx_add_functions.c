@@ -25,6 +25,31 @@ void mx_bubble_list_sort(t_list *start) {
     }
 }
 
+void mx_bubble_r_list_sort(t_list *start) { 
+    bool swapped = true; 
+    t_list *list = start;
+    t_list *end = NULL; 
+  
+    if (start == NULL) 
+        return; 
+
+    while(swapped){
+        list = start;
+        swapped = false;
+        while (list->next != end){
+            if (mx_strcmp(list->next->data, list->data) > 0) {
+                char* temp = list->data;
+                list->data = list->next->data;
+                list->next->data = temp;
+
+                swapped = true;
+            }
+            list = list->next;
+        }
+        end = list;
+    }
+}
+
 
 char* mx_trimtime(char* str) {
     char* n_str = malloc(12);
@@ -128,45 +153,7 @@ int mx_total(t_list *spisok, char *path){
     return size;
 }
 
-t_list *mx_list_file(int argc, char *argv[], int i){
-    t_list *file_spisok = NULL;
-    struct stat file_statistics;
-    for (; i < argc; i++){
-        if (stat(argv[i], &file_statistics) == 0){
-            if (S_ISDIR(file_statistics.st_mode)) {
-                continue;
-            }
-            else {
-                mx_push_front(&file_spisok, argv[i]);
-            }
-        }
-        else {
-            mx_uncreated_file(argv[i]);
-        }
-    }
-    mx_bubble_list_sort(file_spisok);
-    return file_spisok;
-}
 
-t_list *mx_list_dir(int argc, char *argv[], int i){
-    t_list *dir_spisok = NULL;
-    struct stat file_statistics;
-    for (; i < argc; i++){
-        if (stat(argv[i], &file_statistics) == 0){
-            if (S_ISDIR(file_statistics.st_mode)) {
-                mx_push_front(&dir_spisok, argv[i]);
-            }
-            else {
-                continue;
-            }
-        }
-        else {
-            mx_uncreated_file(argv[i]);
-        }
-    }
-    mx_bubble_list_sort(dir_spisok);
-    return dir_spisok;
-}
 
 void mx_print_row(t_list *spisok){
     for (t_list *i = spisok; i != NULL; i = i->next){
@@ -197,7 +184,6 @@ void mx_print_columnnnnnnnn(t_list *spisok) {
 
     for (t_list *i = spisok; i != NULL; i = i->next){
         num_files++;
-        //mx_printstr("sukasukasuka");
         buffer = mx_realloc(buffer, sizeof(char *) * num_files);
         buffer[num_files - 1] = mx_strdup(i->data);
     }
@@ -211,8 +197,6 @@ void mx_print_columnnnnnnnn(t_list *spisok) {
     }
 
     int columns = w.ws_col / (max_len + 1);
-
-
     int rows = (num_files + columns - 1) / columns; 
 
     for (int i = 0; i < rows; i++) {
@@ -228,8 +212,6 @@ void mx_print_columnnnnnnnn(t_list *spisok) {
 
             for (int k = length; k <= max_len + 2; k++) { 
                 mx_strcat(str, " ");
-                //mx_strcat(str, " ");
-
             }
 
             write(STDOUT_FILENO, str, mx_strlen(str)); 
@@ -243,6 +225,7 @@ void mx_print_columnnnnnnnn(t_list *spisok) {
     }
     free(buffer);
 }
+
 
 void mx_print_with_coma(t_list *spisok) {
     for (t_list *i = spisok; i != NULL; i = i->next) {
@@ -310,10 +293,63 @@ void mx_ebatb_I_smart_peredal_function_in_other_function(void (*f)(t_list *), in
         }
 }
 
+void mx_ebatb_I_smart_peredal_function_in_other_function_for_r_sort(void (*f)(t_list *), int argc, char *argv[], int nachalo){
+
+        bool flag = false;
+        t_list *file_spisok = mx_list_r_file(argc, argv, nachalo);
+        t_list *dir_spisok = mx_list_r_dir(argc, argv, nachalo);
+        if (dir_spisok != NULL && dir_spisok->next == NULL && file_spisok == NULL) {
+
+            DIR *dir = opendir(dir_spisok->data);
+            if (!dir) {
+                mx_uncreated_file(dir_spisok->data); 
+            }
+            t_list *sp = mx_return_r_spisok(dir);
+
+            
+            //t_list *sp = mx_dir_man(dir_spisok->data);
+            f(sp);
+            closedir(dir);
+            //mx_printchar('\n');
+        }
+        if (file_spisok != NULL) {
+            for (t_list *i = file_spisok; i != NULL; i = i->next){
+                if (i->next == NULL){
+                    mx_printstr(i->data);
+                    mx_printstr("\n");
+                }
+                else {
+                    mx_printstr(i->data);
+                    mx_printstr("  ");
+                }
+            }
+            flag = true;
+        }     
+
+        if (dir_spisok != NULL && (file_spisok != NULL || dir_spisok->next != NULL)) {
+            if (flag)
+                mx_printchar('\n');
+            while (dir_spisok != NULL){
+                DIR *dir = opendir(dir_spisok->data);
+                if (!dir) {
+                    mx_uncreated_file(dir_spisok->data); 
+                }
+                t_list *sp = mx_return_r_spisok(dir);
+                mx_printstr(dir_spisok->data);
+                mx_printstr(":\n");
+                f(sp);
+                //mx_printchar('\n');
+                if (dir_spisok->next != NULL) {
+                    mx_printchar('\n');
+                }
+                dir_spisok = dir_spisok->next;
+                closedir(dir);
+            }
+        }
+    }
+
 void mx_print_total(t_list *spisok, char *path){
     mx_printstr("total ");
     mx_printint(mx_total(spisok, path));
     mx_printchar('\n');
 }
-
-

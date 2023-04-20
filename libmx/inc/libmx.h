@@ -58,7 +58,6 @@ void *mx_memmem(const void *big, size_t big_len, const void *little, size_t litt
 void *mx_memmove(void *dst, const void *src, size_t len);
 void mx_printerr(const char *s);
 char *mx_itoa(long long number);
-void *mx_realloc(void *ptr, size_t size);
 
 
 typedef struct s_list {
@@ -85,5 +84,6 @@ bool mx_islower(int c);
 int mx_atoi(const char *str);
 bool mx_isalpha(int c);
 int mx_tolower(int c);
+void *mx_realloc(void *ptr, size_t size);
 
 

@@ -44,6 +44,9 @@ void mx_full_ls_function(char* argv[], int argc) {
     else if (mx_strcmp(argv[1], "-R") == 0){
         mx_Rls(argc, argv);
     }
+    else if (mx_strcmp(argv[1], "-r") == 0){
+        mx_check_r_sort(argc, argv);
+    }
     else if (mx_strcmp(argv[1], "-l") != 0){
 
         t_list *file_spisok = mx_list_file(argc, argv, 1);
