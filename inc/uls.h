@@ -5,6 +5,8 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/ioctl.h>
+#include <sys/acl.h>
+#include <sys/xattr.h>
 #include <unistd.h>
 #include <pwd.h>
 #include <time.h>
@@ -36,7 +38,7 @@ void mx_print_total(t_list *spisok, char *path);
 void mx_ls(t_list *spisok);
 void mx_lls(t_list *spisok, char *path);
 void mx_full_ls_function(char* argv[], int argc);
-void mx_print_lls(struct stat file_statistics, int max_size, int max_number);
+void mx_print_lls(struct stat file_statistics, int max_size, int max_number, char* filename);
 t_list *mx_return_spisok(DIR *dir);
 void mx_no_flags(t_list *spisok);
 void mx_print_dir_G(t_list *dir_spisok);

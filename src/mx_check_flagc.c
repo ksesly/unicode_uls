@@ -43,7 +43,7 @@ void mx_check_l(int argc, char* argv[]) {
             //mx_printstr("hell111");
             //mx_lls(spisok, argv[i]);
 
-            if (stat(argv[i], &file_statistics) == 0){
+            if (lstat(argv[i], &file_statistics) == 0){
                 if (S_ISDIR(file_statistics.st_mode)) {
                     mx_push_front(&dir_list, argv[i]);
                 }
