@@ -51,11 +51,14 @@ t_list *mx_list_file(int argc, char *argv[], int i){
             mx_uncreated_file(argv[i]);
         }
     }
+
     mx_bubble_list_sort(file_spisok);
+    
     return file_spisok;
 }
 
 t_list *mx_list_dir(int argc, char *argv[], int i){
+
     t_list *dir_spisok = NULL;
     struct stat file_statistics;
     for (; i < argc; i++){

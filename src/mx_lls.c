@@ -42,6 +42,7 @@ void mx_print_lls(struct stat file_statistics, int max_size, int max_number, cha
     }
     else {
         //mx_printstr(filename);
+        //mx_printint(size);
         mx_printstr("  ");
     }
     mx_print_size(max_number, file_statistics.st_nlink);
