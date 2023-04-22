@@ -26,7 +26,6 @@
     }
 }
 
-
 void mx_print_lls(struct stat file_statistics, int max_size, int max_number, char* filename) {
 
     struct passwd *pw;

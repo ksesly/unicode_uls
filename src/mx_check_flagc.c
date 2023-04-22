@@ -1,8 +1,5 @@
 #include "../inc/uls.h"
 
-
-
-
 void mx_check_r_sort(int argc, char* argv[]) {
     if (argc == 2) {
         DIR *dir = opendir(".");
@@ -14,7 +11,7 @@ void mx_check_r_sort(int argc, char* argv[]) {
         closedir(dir);
     }
     else if(argc >= 3) {
-        mx_ebatb_I_smart_peredal_function_in_other_function_for_r_sort(&mx_print_columnnnnnnnn, argc, argv, 2);
+        mx_multy_file_and_dir_output_r_sort(&mx_print_columnnnnnnnn, argc, argv, 2);
     }
 }
 

@@ -20,7 +20,7 @@ void mx_full_ls_function(char* argv[], int argc) {
         if (argc == 2)
             mx_check_m();
         else
-            mx_ebatb_I_smart_peredal_function_in_other_function(&mx_print_with_coma, argc, argv, 2);
+            mx_multy_file_and_dir_output(&mx_print_with_coma, argc, argv, 2);
         
     }
     else if (mx_strcmp(argv[1], "-G") == 0){
@@ -51,7 +51,6 @@ void mx_full_ls_function(char* argv[], int argc) {
         bool is_already = true;
         t_list *file_spisok = mx_list_file(argc, argv, 1);
         t_list *dir_spisok = mx_list_dir(argc, argv, 1);
-
         if (dir_spisok->next == NULL && file_spisok == NULL) {
             DIR *dir = opendir(dir_spisok->data);
             if (!dir) {
@@ -64,7 +63,6 @@ void mx_full_ls_function(char* argv[], int argc) {
             closedir(dir);
             is_already = false;
         }
-
         if (file_spisok != NULL) {
             while (file_spisok != NULL){
                 mx_printstr(file_spisok->data);
@@ -74,8 +72,6 @@ void mx_full_ls_function(char* argv[], int argc) {
             mx_printchar('\n');
             mx_printchar('\n');
         }     
-
-
         if (dir_spisok->next != NULL) {
             while (dir_spisok != NULL){
                
@@ -104,10 +100,7 @@ void mx_full_ls_function(char* argv[], int argc) {
                 mx_printstr(":\n");
                 mx_no_flags(sp);
         }
-        //mx_printstr("hello!!!!!!!!!");
-        //mx_ebatb_I_smart_peredal_function_in_other_function(&mx_print_column, argc, argv, 1);
-
     }
 }
 
-//kolya pisal etot kod
+
