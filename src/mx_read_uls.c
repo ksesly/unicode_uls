@@ -66,6 +66,7 @@ void mx_full_ls_function(char* argv[], int argc) {
             is_already = false;
         }
         if (file_spisok != NULL) {
+
             //while (file_spisok != NULL){
                 mx_print_columnnnnnnnn(file_spisok/*->data*/);
                 //file_spisok = file_spisok->next;
@@ -74,6 +75,7 @@ void mx_full_ls_function(char* argv[], int argc) {
             mx_printchar('\n');
         }     
         if (dir_spisok->next != NULL) {
+
             while (dir_spisok != NULL){
                
                 DIR *dir = opendir(dir_spisok->data);
