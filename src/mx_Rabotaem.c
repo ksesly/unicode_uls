@@ -35,31 +35,18 @@ void mx_Rls(int argc, char *argv[]){
         t_list *file_spisok = mx_list_file(argc, argv, 2);
         t_list *dir_spisok = mx_list_dir(argc, argv, 2);
         if (dir_spisok != NULL && dir_spisok->next == NULL && file_spisok == NULL) {
-
-             DIR *dir = opendir(dir_spisok->data);
+            DIR *dir = opendir(dir_spisok->data);
             if (!dir) {
-                 mx_uncreated_file(dir_spisok->data); 
-             }
-             t_list *sp = mx_return_spisok(dir);
+                mx_uncreated_file(dir_spisok->data); 
+            }
+            t_list *sp = mx_return_spisok(dir);
 
-             mx_print_columnnnnnnnn(sp);
-            //mx_tipa_recyrsia(dir_spisok->data);
+            mx_print_columnnnnnnnn(sp);
             closedir(dir);
-            //mx_printchar('\n');
+
         }
         if (file_spisok != NULL) {
-            //for (t_list *i = file_spisok; i != NULL; i = i->next){
-                // if (i->next == NULL){
-                //     mx_printstr(i->data);
-                //     mx_printstr("\n");
-                // }
-                // else {
-                //     mx_printstr(i->data);
-                //     mx_printstr("  ");
-                // }
-
-                mx_print_columnnnnnnnn(file_spisok);
-            //}
+            mx_print_columnnnnnnnn(file_spisok);
             flag = true;
         }     
 
@@ -67,20 +54,12 @@ void mx_Rls(int argc, char *argv[]){
             if (flag)
                 mx_printchar('\n');
             while (dir_spisok != NULL){
-                // DIR *dir = opendir(dir_spisok->data);
-                // if (!dir) {
-                //     mx_uncreated_file(dir_spisok->data); 
-                // }
-                // t_list *sp = mx_return_spisok(dir);
-                // mx_printstr(dir_spisok->data);
-                // mx_printstr(":\n");
+
                 mx_tipa_recyrsia(dir_spisok->data);
-                //mx_printchar('\n');
                 if (dir_spisok->next != NULL) {
                     mx_printchar('\n');
                 }
                 dir_spisok = dir_spisok->next;
-                //closedir(dir);
             }
         }
     }
@@ -88,10 +67,7 @@ void mx_Rls(int argc, char *argv[]){
 
 void mx_tipa_recyrsia(char *path){
     DIR *dir = opendir(path);
-
-
     t_list *spisok = mx_return_spisok(dir);
-    //mx_printstr("\n");
     mx_printstr(path);
     mx_printstr(":\n");
     mx_print_columnnnnnnnn(spisok);

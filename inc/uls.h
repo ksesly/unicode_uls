@@ -38,6 +38,7 @@ void mx_print_lls(struct stat file_statistics, int max_size, int max_number, cha
 
 //additional functions
 char* mx_trimtime(char* str);
+char* mx_trim_year(char *str);
 int mx_int_length(t_list *spisok, char *path);
 int mx_total(t_list *spisok, char *path);
 int mx_number_length(t_list *spisok, char *path);

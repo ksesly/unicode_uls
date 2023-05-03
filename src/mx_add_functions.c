@@ -60,6 +60,14 @@ char* mx_trimtime(char* str) {
     return n_str;
 }
 
+char* mx_trim_year(char *str) {
+    char* n_str = malloc(7);
+    for (int i = 0; i < 7; i++) {
+        n_str[i] = str[i+4]; 
+    }
+    n_str[7] = '\0';
+    return n_str;
+}
 
 int mx_int_length(t_list *spisok, char *path) {
     struct stat file_statistics;
@@ -175,145 +183,6 @@ void mx_print_column(t_list *spisok){
         }
     }
 }
-
-// void mx_print_columnnnnnnnn(t_list *spisok) {
-//     struct winsize w;
-//     ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-//     int num_files = 0;
-//     int tabs = 2;
-//     char **buffer = NULL;
-
-//     for (t_list *i = spisok; i != NULL; i = i->next){
-//         if (i->data == NULL) {
-//             continue;
-//         }
-//         num_files++;
-//         buffer = mx_realloc(buffer, sizeof(char *) * num_files);
-//         buffer[num_files - 1] = NULL;
-//     }
-
-//     int max_len = 0;
-//     for (t_list *i = spisok; i != NULL; i = i->next) {
-//         int len = mx_strlen(i->data);
-//         if (len > max_len) {
-//             max_len = len;
-//         }
-//     }
-
-//     if (max_len >= 4 * tabs) {
-//         tabs = max_len / 4 + 1;
-//         if (max_len > 4 * tabs) {
-//             tabs++;
-//         }
-//     }
-//     // int columns = w.ws_col / (max_len + 1);
-//     // int rows = (num_files + columns - 1) / columns; 
-//     int rows = 1;
-
-//     while(true) {
-//         if (tabs * 4 * (num_files + 1) / rows >= w.ws_col) {
-//             rows++;
-//             continue;
-//         }
-//         break;
-//     }
-//     int columns = num_files / rows;
-
-//     if (num_files > columns * rows) {
-//         rows++;
-//     }
-
-//     for (int i = 0; i < rows; i++) {
-//         for (int j = 0; j < columns; j++) {
-//             if (j * rows + i >= num_files) break;
-
-//             int index = i + j * rows; 
-
-//             if (index >= num_files) {
-//                 break;
-//             }
-
-//             char *str = mx_strdup(buffer[index]); 
-//             //int length = mx_strlen(str);
-
-//             for (int k = 0; k < tabs * 4 - mx_strlen(buffer[index]); k++) { 
-//                 mx_strcat(str, " ");
-//             }
-
-//             write(STDOUT_FILENO, str, mx_strlen(str)); 
-
-//         }
-//         mx_printchar('\n');
-//     }
-
-//     // for (int i = 0; i < num_files; i++) {
-//     //     free(buffer[i]);
-//     // }
-//     free(buffer);
-// }
-
-
-// void mx_print_columnnnnnnnn(t_list *spisok) {
-    
-//     int max_step = 0;
-//     int num_files = 0;
-//     int num_col = 6; 
-//     int longest_arr[num_col];
-//     char **buffer = NULL;
-
-
-//     buffer = malloc(sizeof(char *) * num_files); 
-
-//     for (int i = 0; i < num_files; i++) {
-//          buffer[i] = NULL;
-//     }
-
-//     for (t_list *i = spisok; i != NULL; i = i->next){
-//         num_files++;
-//         buffer = realloc(buffer, sizeof(char *) * num_files); //mx!!!
-//         buffer[num_files - 1] = NULL;
-//     }
-//     int counter = 0;
-//     for (t_list *i = spisok; i != NULL; i = i->next) {
-//          buffer[counter] = mx_strdup(i->data);
-//          counter++;
-//     }
-
-//     if (num_files / num_col > 0) {
-//         int cur_max = 0;
-//         int cur_step = 0;
-//         int index = 0;
-//         for (int i = 0; i < num_col; i++) {
-//             for (int j = cur_step; j < num_files / num_col + 1; j++) {
-//                 if (j > num_files - 1) {
-//                     break;
-//                 }
-//                 if (mx_strlen(buffer[j]) > cur_max) {
-//                     cur_max = mx_strlen(buffer[j]);
-//                 }
-//             }
-//             longest_arr[index] = cur_max;
-//             cur_step += num_files / num_col + 1;
-//             index++;
-//             cur_max = 0;
-//         }
-//     }
-//     for (int i = 0; i < num_files / num_col + 1; i++ ) {
-//         for (int j = i; j < num_files; j += num_files / num_col + 1) {
-//             mx_printstr(buffer[j]);
-//             mx_printstr("  ");
-//             if (num_files / num_col > 0 && mx_strlen(buffer[j]) < longest_arr[max_step]) {
-//                 for (int k = 0; k < longest_arr[max_step] - mx_strlen(buffer[j]); k++) {
-//                     mx_printstr(" ");
-//                 }
-//             }
-//             max_step++;
-//         }
-//         mx_printchar('\n');
-//         max_step = 0;
-//     }
-// }
-
 
 
 void mx_print_columnnnnnnnn(t_list *spisok) {
