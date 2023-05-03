@@ -21,9 +21,6 @@ void mx_print_file_access(struct stat file_statistics) {
     else 
         mx_printchar('-');
 
-    
-
-
     mx_printstr((file_statistics.st_mode & S_IRUSR) ? "r" : "-");
     mx_printstr((file_statistics.st_mode & S_IWUSR) ? "w" : "-");
     mx_printstr((file_statistics.st_mode & S_IXUSR) ? "x" : "-");

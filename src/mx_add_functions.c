@@ -75,7 +75,7 @@ int mx_int_length(t_list *spisok, char *path) {
     char buff[200];
 
     for (t_list *i = spisok; i != NULL; i = i->next) {
-        sprintf(buff, "%s/%s", path, i->data);              //CHANGE
+        sprintf(buff, "%s/%s", path, i->data); 
         if (stat(buff, &file_statistics) == -1) continue;
 
         int l = file_statistics.st_size;
@@ -97,7 +97,7 @@ int mx_number_length(t_list *spisok, char *path) {
     char buff[200];
 
     for (t_list *i = spisok; i != NULL; i = i->next) {
-        sprintf(buff, "%s/%s", path, i->data);              //CHANGE
+        sprintf(buff, "%s/%s", path, i->data);
         if (stat(buff, &file_statistics) == -1) continue;
 
         int l = file_statistics.st_nlink;
@@ -206,7 +206,7 @@ void mx_print_columnnnnnnnn(t_list *spisok) {
         }
         for (t_list *i = spisok; i != NULL; i = i->next){
             num_files++;
-            buffer = mx_realloc(buffer, sizeof(char *) * num_files); //mx!!!
+            buffer = mx_realloc(buffer, sizeof(char *) * num_files);
             buffer[num_files - 1] = NULL;
         }
         int index = 0;
@@ -254,13 +254,9 @@ void mx_print_columnnnnnnnn(t_list *spisok) {
 
                 char *str = mx_strdup(buffer[index]); 
 
-                // for (int k = 0; k < tabs * 4 - mx_strlen(buffer[index]); k++) { 
-                //     mx_strcat(str, " ");
-                // }
-
                 int pad_len = tabs * 4 - mx_strlen(buffer[index]);
                 if (pad_len > 0) {
-                    str = mx_realloc(str, mx_strlen(str) + pad_len + 1); // allocate additional memory for spaces
+                    str = mx_realloc(str, mx_strlen(str) + pad_len + 1); 
                     if (buffer[i + 1] != NULL) {
                         for (int k = 0; k < pad_len; k++) { 
                             mx_strcat(str, " ");
@@ -268,12 +264,10 @@ void mx_print_columnnnnnnnn(t_list *spisok) {
                     }
                 }
                 write(STDOUT_FILENO, str, mx_strlen(str)); 
-                free(str); // Free allocated memory for str
+                free(str); 
             }
             mx_printchar('\n');
         }
-
-        // Free allocated memory for buffer
         for (int i = 0; i < num_files; i++) {
             free(buffer[i]);
         }
@@ -305,12 +299,8 @@ void mx_multi_file_and_dir_output(void (*f)(t_list *), int argc, char *argv[], i
             mx_uncreated_file(dir_spisok->data); 
         }
         t_list *sp = mx_return_spisok(dir);
-
-        
-        //t_list *sp = mx_dir_man(dir_spisok->data);
         f(sp);
         closedir(dir);
-        //mx_printchar('\n');
     }
     if (file_spisok != NULL) {
         for (t_list *i = file_spisok; i != NULL; i = i->next){
@@ -338,7 +328,6 @@ void mx_multi_file_and_dir_output(void (*f)(t_list *), int argc, char *argv[], i
             mx_printstr(dir_spisok->data);
             mx_printstr(":\n");
             f(sp);
-            //mx_printchar('\n');
             if (dir_spisok->next != NULL) {
                 mx_printchar('\n');
             }
@@ -360,12 +349,8 @@ void mx_multi_file_and_dir_output_r_sort(void (*f)(t_list *), int argc, char *ar
                 mx_uncreated_file(dir_spisok->data); 
             }
             t_list *sp = mx_return_r_spisok(dir);
-
-            
-            //t_list *sp = mx_dir_man(dir_spisok->data);
             f(sp);
             closedir(dir);
-            //mx_printchar('\n');
         }
         if (file_spisok != NULL) {
             for (t_list *i = file_spisok; i != NULL; i = i->next){
@@ -393,7 +378,6 @@ void mx_multi_file_and_dir_output_r_sort(void (*f)(t_list *), int argc, char *ar
                 mx_printstr(dir_spisok->data);
                 mx_printstr(":\n");
                 f(sp);
-                //mx_printchar('\n');
                 if (dir_spisok->next != NULL) {
                     mx_printchar('\n');
                 }

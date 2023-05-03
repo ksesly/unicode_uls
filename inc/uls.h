@@ -29,7 +29,6 @@ void mx_print_size(int max_int, int size);
 void mx_print_row(t_list *spisok);
 void mx_print_column(t_list *spisok);
 void mx_print_total(t_list *spisok, char *path);
-void mx_no_flags(t_list *spisok);
 void mx_print_dir_G(t_list *dir_spisok);
 void mx_print_G(t_list *spisok, char *dir);
 void mx_print_with_coma(t_list *spisok);
@@ -46,7 +45,6 @@ void mx_multi_file_and_dir_output(void (*f)(t_list *), int argc, char *argv[], i
 void mx_multi_file_and_dir_output_r_sort(void (*f)(t_list *), int argc, char *argv[], int nachalo);
 
 //ls
-void mx_ls(t_list *spisok);
 void mx_lls(t_list *spisok, char *path);
 void mx_full_ls_function(char* argv[], int argc);
 t_list *mx_return_spisok(DIR *dir);

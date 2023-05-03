@@ -37,7 +37,6 @@ void mx_check_l(int argc, char* argv[]) {
         mx_print_total(spisok, ".");
         mx_lls(spisok, ".");
         closedir(dir);
-        //return spisok;
     }
     else if (argc >= 3){
         t_list *file_list = NULL;
@@ -48,10 +47,6 @@ void mx_check_l(int argc, char* argv[]) {
             if (!dir) {
                 mx_uncreated_file("."); 
             }
-            //t_list *spisok = mx_return_spisok(dir);
-            //mx_printstr("hell111");
-            //mx_lls(spisok, argv[i]);
-
             if (lstat(argv[i], &file_statistics) == 0){
                 if (S_ISDIR(file_statistics.st_mode)) {
                     mx_push_front(&dir_list, argv[i]);
@@ -67,7 +62,6 @@ void mx_check_l(int argc, char* argv[]) {
         mx_bubble_list_sort(file_list);
         mx_bubble_list_sort(dir_list);
         if (file_list != NULL)
-            //mx_printstr("help");
             mx_lls(file_list, ".");
         bool flag = false; 
         bool flag1 = false;
@@ -91,7 +85,6 @@ void mx_check_l(int argc, char* argv[]) {
             }
 
             DIR *dir = opendir(dir_list->data);
-            //mx_printstr("hell");
             mx_lls(mx_return_spisok(dir), dir_list->data);
             closedir(dir);
         }

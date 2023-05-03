@@ -38,8 +38,7 @@ void mx_print_lls(struct stat file_statistics, int max_size, int max_number, cha
 
     struct passwd *pw;
     struct group *grp;
-    //struct stat file_statistics;
-
+    
     mx_print_file_access(file_statistics);
     acl_t tmp;
 

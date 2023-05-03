@@ -8,9 +8,6 @@ void mx_Rls(int argc, char *argv[]){
         }
         struct stat file_statistics;
         t_list *spisok = mx_return_spisok(dir);
-
-        //mx_printstr(".:\n");
-        //mx_print_column(spisok);
         mx_print_columnnnnnnnn(spisok);
         for (t_list *i = spisok; i != NULL; i = i->next){
             char *buff = mx_strdup(".");

@@ -57,21 +57,13 @@ void mx_full_ls_function(char* argv[], int argc) {
             if (!dir) {
                 mx_uncreated_file(".");
             }
-
             t_list *sp = mx_return_spisok(dir);
-            //mx_no_flags(sp);
             mx_print_columnnnnnnnn(sp);
-            //mx_printchar('\n');
             closedir(dir);
             is_already = false;
         }
         if (file_spisok != NULL) {
-
-            //while (file_spisok != NULL){
-                mx_print_columnnnnnnnn(file_spisok/*->data*/);
-                //file_spisok = file_spisok->next;
-            //}
-            //mx_printchar('\n');
+            mx_print_columnnnnnnnn(file_spisok);
             mx_printchar('\n');
         }     
         if (dir_spisok->next != NULL) {
@@ -85,9 +77,7 @@ void mx_full_ls_function(char* argv[], int argc) {
                 t_list *sp = mx_return_spisok(dir);
                 mx_printstr(dir_spisok->data);
                 mx_printstr(":\n");
-                //mx_no_flags(sp);
                 mx_print_columnnnnnnnn(sp);
-                //mx_printchar('\n');
                 if (dir_spisok->next != NULL) {
                     mx_printchar('\n');
                 }
@@ -102,7 +92,6 @@ void mx_full_ls_function(char* argv[], int argc) {
                 t_list *sp = mx_return_spisok(dir);
                 mx_printstr(dir_spisok->data);
                 mx_printstr(":\n");
-                //mx_no_flags(sp);
                 mx_print_columnnnnnnnn(sp);
         }
     }
