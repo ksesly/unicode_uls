@@ -19,7 +19,7 @@ AR = ar rcs
 MKDIR = mkdir -p
 MAKE_LIB = make -sC
 
-all: $(LIB_A) $(NAME) clean
+all: $(LIB_A) $(NAME) 
 
 $(NAME): $(OBJ_FILES)
 	$(CC) $(CFLAGS) $(OBJ_FILES) -L$(LIB_DIR) -lmx -o $@

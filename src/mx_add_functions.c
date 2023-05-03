@@ -317,89 +317,100 @@ void mx_print_column(t_list *spisok){
 
 
 void mx_print_columnnnnnnnn(t_list *spisok) {
+    int term = isatty(STDOUT_FILENO);
     struct winsize w;
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
     int num_files = 0;
     int tabs = 2;
     char **buffer = NULL;
 
-    buffer = malloc(sizeof(char *) * num_files);
-    for (int i = 0; i < num_files; i++) {
-        buffer[i] = NULL;
-    }
-    for (t_list *i = spisok; i != NULL; i = i->next){
-        num_files++;
-        buffer = realloc(buffer, sizeof(char *) * num_files); //mx!!!
-        buffer[num_files - 1] = NULL;
-    }
-    int index = 0;
-    int max_len = 0;
-    for (t_list *i = spisok; i != NULL; i = i->next) {
-        buffer[index] = mx_strdup(i->data);
-        int len = mx_strlen(buffer[index]);
-        if (len > max_len) {
-            max_len = len;
-        }
-        index++;
-    }
-
-    if (max_len >= 4 * tabs) {
-        tabs = max_len / 4 + 2;
-        if (max_len > 4 * tabs) {
-            tabs++;
+    if(!term) {
+        for (t_list *i = spisok; i != NULL; i = i->next) {
+            mx_printstr(i->data);
+            mx_printchar('\n');
         }
     }
+    else { 
+        buffer = malloc(sizeof(char *) * num_files);
+        for (int i = 0; i < num_files; i++) {
+            buffer[i] = NULL;
+        }
+        for (t_list *i = spisok; i != NULL; i = i->next){
+            num_files++;
+            buffer = mx_realloc(buffer, sizeof(char *) * num_files); //mx!!!
+            buffer[num_files - 1] = NULL;
+        }
+        int index = 0;
+        int max_len = 0;
+        for (t_list *i = spisok; i != NULL; i = i->next) {
+            buffer[index] = mx_strdup(i->data);
+            int len = mx_strlen(buffer[index]);
+            if (len > max_len) {
+                max_len = len;
+            }
+            index++;
+        }
 
-    int rows = 1;
+        if (max_len >= 4 * tabs) {
+            tabs = max_len / 4 + 2;
+            if (max_len > 4 * tabs) {
+                tabs++;
+            }
+        }
 
-    while(true) {
-        if (tabs * 4 * (num_files + 1) / rows >= w.ws_col) {
+        int rows = 1;
+
+        while(true) {
+            if (tabs * 4 * (num_files + 1) / rows >= w.ws_col) {
+                rows++;
+                continue;
+            }
+            break;
+        }
+        int columns = num_files / rows;
+
+        if (num_files > columns * rows) {
             rows++;
-            continue;
         }
-        break;
-    }
-    int columns = num_files / rows;
 
-    if (num_files > columns * rows) {
-        rows++;
-    }
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                if (j * rows + i >= num_files) break;
 
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < columns; j++) {
-            if (j * rows + i >= num_files) break;
+                index = i + j * rows; 
 
-            index = i + j * rows; 
-
-            if (index >= num_files) {
-                break;
-            }
-
-            char *str = mx_strdup(buffer[index]); 
-
-            // for (int k = 0; k < tabs * 4 - mx_strlen(buffer[index]); k++) { 
-            //     mx_strcat(str, " ");
-            // }
-
-            int pad_len = tabs * 4 - mx_strlen(buffer[index]);
-            if (pad_len > 0) {
-                str = mx_realloc(str, mx_strlen(str) + pad_len + 1); // allocate additional memory for spaces
-                for (int k = 0; k < pad_len; k++) { 
-                    mx_strcat(str, " ");
+                if (index >= num_files) {
+                    break;
                 }
+
+                char *str = mx_strdup(buffer[index]); 
+
+                // for (int k = 0; k < tabs * 4 - mx_strlen(buffer[index]); k++) { 
+                //     mx_strcat(str, " ");
+                // }
+
+                int pad_len = tabs * 4 - mx_strlen(buffer[index]);
+                if (pad_len > 0) {
+                    str = mx_realloc(str, mx_strlen(str) + pad_len + 1); // allocate additional memory for spaces
+                    if (buffer[i + 1] != NULL) {
+                        for (int k = 0; k < pad_len; k++) { 
+                            mx_strcat(str, " ");
+                        }
+                    }
+                }
+                write(STDOUT_FILENO, str, mx_strlen(str)); 
+                free(str); // Free allocated memory for str
             }
-
-            write(STDOUT_FILENO, str, mx_strlen(str)); 
-            free(str); // Free allocated memory for str
+            mx_printchar('\n');
         }
-        mx_printchar('\n');
-    }
 
-    // Free allocated memory for buffer
-    for (int i = 0; i < num_files; i++) {
-        free(buffer[i]);
+        // Free allocated memory for buffer
+        for (int i = 0; i < num_files; i++) {
+            free(buffer[i]);
+        }
+        free(buffer);
     }
-    free(buffer);
+    
 }
 
 void mx_print_with_coma(t_list *spisok) {

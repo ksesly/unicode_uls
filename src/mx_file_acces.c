@@ -7,6 +7,7 @@ void mx_print_file_access(struct stat file_statistics) {
     //mx_printstr(S_ISFIFO(file_statistics.st_mode) ? "p" : "-");
     //mx_printstr(S_ISBLK(file_statistics.st_mode) ? "b" : "-");
     //mx_printstr(S_ISCHR(file_statistics.st_mode) ? "c" : "-");
+    mx_printstr((file_statistics.st_mode & S_ISVTX) ? "t" : "-");
 
     // permission for ?
     mx_printstr((file_statistics.st_mode & S_IRUSR) ? "r" : "-");

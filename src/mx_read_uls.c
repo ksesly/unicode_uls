@@ -3,7 +3,7 @@
 
 
 void mx_full_ls_function(char* argv[], int argc) {
-    //int is_treminal = isatty(STDIN_FILENO);
+    
     if (argc == 1){
 
         DIR *dir = opendir(".");
@@ -11,7 +11,6 @@ void mx_full_ls_function(char* argv[], int argc) {
             mx_uncreated_file("."); 
         }
         t_list *spisok = mx_return_spisok(dir);
-        //mx_ls(spisok);
         mx_print_columnnnnnnnn(spisok);
         closedir(dir);
     }
@@ -67,12 +66,11 @@ void mx_full_ls_function(char* argv[], int argc) {
             is_already = false;
         }
         if (file_spisok != NULL) {
-            while (file_spisok != NULL){
-                mx_printstr(file_spisok->data);
-                mx_printstr("  ");
-                file_spisok = file_spisok->next;
-            }
-            mx_printchar('\n');
+            //while (file_spisok != NULL){
+                mx_print_columnnnnnnnn(file_spisok/*->data*/);
+                //file_spisok = file_spisok->next;
+            //}
+            //mx_printchar('\n');
             mx_printchar('\n');
         }     
         if (dir_spisok->next != NULL) {
