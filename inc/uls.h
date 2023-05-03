@@ -41,8 +41,8 @@ char* mx_trimtime(char* str);
 int mx_int_length(t_list *spisok, char *path);
 int mx_total(t_list *spisok, char *path);
 int mx_number_length(t_list *spisok, char *path);
-void mx_multy_file_and_dir_output(void (*f)(t_list *), int argc, char *argv[], int nachalo);
-void mx_multy_file_and_dir_output_r_sort(void (*f)(t_list *), int argc, char *argv[], int nachalo);
+void mx_multi_file_and_dir_output(void (*f)(t_list *), int argc, char *argv[], int nachalo);
+void mx_multi_file_and_dir_output_r_sort(void (*f)(t_list *), int argc, char *argv[], int nachalo);
 
 //ls
 void mx_ls(t_list *spisok);

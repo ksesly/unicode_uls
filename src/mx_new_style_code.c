@@ -8,11 +8,11 @@ void mx_ls(t_list *spisok)                                  {
 
 //        if (i->data == NULL)
 
-        if (i->next == NULL)
+        //if (i->next == NULL)
 
             mx_printstr(mx_strcat(i->data, "\n"))           ;
-        else 
-            mx_printstr(mx_strcat(i->data, "\t"))           ;
+        //else 
+        //    mx_printstr(mx_strcat(i->data, "\t"))           ;
                                                             }
     //mx_printchar('\n')                                    ;
                                                             }

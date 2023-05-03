@@ -3,6 +3,7 @@
 
 
 void mx_full_ls_function(char* argv[], int argc) {
+    //int is_treminal = isatty(STDIN_FILENO);
     if (argc == 1){
 
         DIR *dir = opendir(".");
@@ -10,7 +11,8 @@ void mx_full_ls_function(char* argv[], int argc) {
             mx_uncreated_file("."); 
         }
         t_list *spisok = mx_return_spisok(dir);
-        mx_ls(spisok);
+        //mx_ls(spisok);
+        mx_print_columnnnnnnnn(spisok);
         closedir(dir);
     }
     else if (mx_strcmp(argv[1], "-m") == 0){
@@ -20,7 +22,7 @@ void mx_full_ls_function(char* argv[], int argc) {
         if (argc == 2)
             mx_check_m();
         else
-            mx_multy_file_and_dir_output(&mx_print_with_coma, argc, argv, 2);
+            mx_multi_file_and_dir_output(&mx_print_with_coma, argc, argv, 2);
         
     }
     else if (mx_strcmp(argv[1], "-G") == 0){
@@ -58,7 +60,8 @@ void mx_full_ls_function(char* argv[], int argc) {
             }
 
             t_list *sp = mx_return_spisok(dir);
-            mx_no_flags(sp);
+            //mx_no_flags(sp);
+            mx_print_columnnnnnnnn(sp);
             //mx_printchar('\n');
             closedir(dir);
             is_already = false;
@@ -82,7 +85,8 @@ void mx_full_ls_function(char* argv[], int argc) {
                 t_list *sp = mx_return_spisok(dir);
                 mx_printstr(dir_spisok->data);
                 mx_printstr(":\n");
-                mx_no_flags(sp);
+                //mx_no_flags(sp);
+                mx_print_columnnnnnnnn(sp);
                 //mx_printchar('\n');
                 if (dir_spisok->next != NULL) {
                     mx_printchar('\n');
@@ -98,7 +102,8 @@ void mx_full_ls_function(char* argv[], int argc) {
                 t_list *sp = mx_return_spisok(dir);
                 mx_printstr(dir_spisok->data);
                 mx_printstr(":\n");
-                mx_no_flags(sp);
+                //mx_no_flags(sp);
+                mx_print_columnnnnnnnn(sp);
         }
     }
 }

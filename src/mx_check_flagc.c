@@ -1,5 +1,17 @@
 #include "../inc/uls.h"
 
+void mx_check_dev(int argc) {
+    if (argc == 2) {
+        DIR *dir = opendir("/dev");
+        if (!dir) {
+            mx_uncreated_file("/dev");
+        }
+        t_list *spisok = mx_return_spisok(dir);
+        mx_print_column(spisok);
+        closedir(dir);
+    }
+}
+
 void mx_check_r_sort(int argc, char* argv[]) {
     if (argc == 2) {
         DIR *dir = opendir(".");
@@ -11,7 +23,7 @@ void mx_check_r_sort(int argc, char* argv[]) {
         closedir(dir);
     }
     else if(argc >= 3) {
-        mx_multy_file_and_dir_output_r_sort(&mx_print_columnnnnnnnn, argc, argv, 2);
+        mx_multi_file_and_dir_output_r_sort(&mx_print_columnnnnnnnn, argc, argv, 2);
     }
 }
 

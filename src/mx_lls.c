@@ -18,7 +18,8 @@
         mx_strcat(buff, i->data);
         // sprintf(buff, "%s/%s", path, i->data);
         if (lstat(buff, &file_statistics) == -1) continue;
-        mx_print_lls(file_statistics, max_size, max_number, i->data);
+
+        mx_print_lls(file_statistics, max_size, max_number, buff);
         // print the file name
 
         mx_printstr(i->data);
@@ -31,15 +32,21 @@ void mx_print_lls(struct stat file_statistics, int max_size, int max_number, cha
     struct passwd *pw;
     struct group *grp;
 
-    char buf[512];
+    //cd ..char buf[512];
     // print the accesss
     mx_print_file_access(file_statistics);
-    ssize_t size = listxattr(filename, buf, sizeof(buf), 0);
-    if (size > 0) {
+    // acl_t tmp;
+    //mx_printstr(filename);
+    if (listxattr(filename, NULL, 0, XATTR_NOFOLLOW) > 0) {
         mx_printchar('@');
+
         mx_printchar(' ');
     }
-    else {
+    // else if ((tmp = acl_get_file(filename, ACL_TYPE_EXTENDED))) {
+    //     acl_free(tmp);
+    //     mx_printchar('+');
+    // }
+     else {
         //mx_printstr(filename);
         //mx_printint(size);
         mx_printstr("  ");

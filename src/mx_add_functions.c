@@ -252,6 +252,70 @@ void mx_print_column(t_list *spisok){
 //     free(buffer);
 // }
 
+
+// void mx_print_columnnnnnnnn(t_list *spisok) {
+    
+//     int max_step = 0;
+//     int num_files = 0;
+//     int num_col = 6; 
+//     int longest_arr[num_col];
+//     char **buffer = NULL;
+
+
+//     buffer = malloc(sizeof(char *) * num_files); 
+
+//     for (int i = 0; i < num_files; i++) {
+//          buffer[i] = NULL;
+//     }
+
+//     for (t_list *i = spisok; i != NULL; i = i->next){
+//         num_files++;
+//         buffer = realloc(buffer, sizeof(char *) * num_files); //mx!!!
+//         buffer[num_files - 1] = NULL;
+//     }
+//     int counter = 0;
+//     for (t_list *i = spisok; i != NULL; i = i->next) {
+//          buffer[counter] = mx_strdup(i->data);
+//          counter++;
+//     }
+
+//     if (num_files / num_col > 0) {
+//         int cur_max = 0;
+//         int cur_step = 0;
+//         int index = 0;
+//         for (int i = 0; i < num_col; i++) {
+//             for (int j = cur_step; j < num_files / num_col + 1; j++) {
+//                 if (j > num_files - 1) {
+//                     break;
+//                 }
+//                 if (mx_strlen(buffer[j]) > cur_max) {
+//                     cur_max = mx_strlen(buffer[j]);
+//                 }
+//             }
+//             longest_arr[index] = cur_max;
+//             cur_step += num_files / num_col + 1;
+//             index++;
+//             cur_max = 0;
+//         }
+//     }
+//     for (int i = 0; i < num_files / num_col + 1; i++ ) {
+//         for (int j = i; j < num_files; j += num_files / num_col + 1) {
+//             mx_printstr(buffer[j]);
+//             mx_printstr("  ");
+//             if (num_files / num_col > 0 && mx_strlen(buffer[j]) < longest_arr[max_step]) {
+//                 for (int k = 0; k < longest_arr[max_step] - mx_strlen(buffer[j]); k++) {
+//                     mx_printstr(" ");
+//                 }
+//             }
+//             max_step++;
+//         }
+//         mx_printchar('\n');
+//         max_step = 0;
+//     }
+// }
+
+
+
 void mx_print_columnnnnnnnn(t_list *spisok) {
     struct winsize w;
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
@@ -259,20 +323,15 @@ void mx_print_columnnnnnnnn(t_list *spisok) {
     int tabs = 2;
     char **buffer = NULL;
 
-    // Allocate memory for buffer and initialize to NULL
     buffer = malloc(sizeof(char *) * num_files);
     for (int i = 0; i < num_files; i++) {
         buffer[i] = NULL;
     }
-
-    // Loop through spisok to count number of files and allocate memory for buffer
     for (t_list *i = spisok; i != NULL; i = i->next){
         num_files++;
-        buffer = realloc(buffer, sizeof(char *) * num_files);
+        buffer = realloc(buffer, sizeof(char *) * num_files); //mx!!!
         buffer[num_files - 1] = NULL;
     }
-
-    // Loop through spisok to copy data into buffer
     int index = 0;
     int max_len = 0;
     for (t_list *i = spisok; i != NULL; i = i->next) {
@@ -285,13 +344,12 @@ void mx_print_columnnnnnnnn(t_list *spisok) {
     }
 
     if (max_len >= 4 * tabs) {
-        tabs = max_len / 4 + 1;
+        tabs = max_len / 4 + 2;
         if (max_len > 4 * tabs) {
             tabs++;
         }
     }
-    // int columns = w.ws_col / (max_len + 1);
-    // int rows = (num_files + columns - 1) / columns; 
+
     int rows = 1;
 
     while(true) {
@@ -307,7 +365,6 @@ void mx_print_columnnnnnnnn(t_list *spisok) {
         rows++;
     }
 
-    // Loop through buffer to print columns
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < columns; j++) {
             if (j * rows + i >= num_files) break;
@@ -320,18 +377,17 @@ void mx_print_columnnnnnnnn(t_list *spisok) {
 
             char *str = mx_strdup(buffer[index]); 
 
-            // Pad string with spaces
             // for (int k = 0; k < tabs * 4 - mx_strlen(buffer[index]); k++) { 
             //     mx_strcat(str, " ");
             // }
 
             int pad_len = tabs * 4 - mx_strlen(buffer[index]);
-if (pad_len > 0) {
-    str = realloc(str, mx_strlen(str) + pad_len + 1); // allocate additional memory for spaces
-    for (int k = 0; k < pad_len; k++) { 
-        mx_strcat(str, " ");
-    }
-}
+            if (pad_len > 0) {
+                str = mx_realloc(str, mx_strlen(str) + pad_len + 1); // allocate additional memory for spaces
+                for (int k = 0; k < pad_len; k++) { 
+                    mx_strcat(str, " ");
+                }
+            }
 
             write(STDOUT_FILENO, str, mx_strlen(str)); 
             free(str); // Free allocated memory for str
@@ -340,9 +396,9 @@ if (pad_len > 0) {
     }
 
     // Free allocated memory for buffer
-    // for (int i = 0; i < num_files; i++) {
-    //     free(buffer[i]);
-    // }
+    for (int i = 0; i < num_files; i++) {
+        free(buffer[i]);
+    }
     free(buffer);
 }
 
@@ -358,61 +414,61 @@ void mx_print_with_coma(t_list *spisok) {
 
 
 
-void mx_multy_file_and_dir_output(void (*f)(t_list *), int argc, char *argv[], int nachalo){
+void mx_multi_file_and_dir_output(void (*f)(t_list *), int argc, char *argv[], int nachalo){
     bool flag = false;
-        t_list *file_spisok = mx_list_file(argc, argv, nachalo);
-        t_list *dir_spisok = mx_list_dir(argc, argv, nachalo);
-        if (dir_spisok != NULL && dir_spisok->next == NULL && file_spisok == NULL) {
+    t_list *file_spisok = mx_list_file(argc, argv, nachalo);
+    t_list *dir_spisok = mx_list_dir(argc, argv, nachalo);
+    if (dir_spisok != NULL && dir_spisok->next == NULL && file_spisok == NULL) {
 
+        DIR *dir = opendir(dir_spisok->data);
+        if (!dir) {
+            mx_uncreated_file(dir_spisok->data); 
+        }
+        t_list *sp = mx_return_spisok(dir);
+
+        
+        //t_list *sp = mx_dir_man(dir_spisok->data);
+        f(sp);
+        closedir(dir);
+        //mx_printchar('\n');
+    }
+    if (file_spisok != NULL) {
+        for (t_list *i = file_spisok; i != NULL; i = i->next){
+            if (i->next == NULL){
+                mx_printstr(i->data);
+                mx_printstr("\n");
+            }
+            else {
+                mx_printstr(i->data);
+                mx_printstr("  ");
+            }
+        }
+        flag = true;
+    }     
+
+    if (dir_spisok != NULL && (file_spisok != NULL || dir_spisok->next != NULL)) {
+        if (flag)
+            mx_printchar('\n');
+        while (dir_spisok != NULL){
             DIR *dir = opendir(dir_spisok->data);
             if (!dir) {
                 mx_uncreated_file(dir_spisok->data); 
             }
             t_list *sp = mx_return_spisok(dir);
-
-            
-            //t_list *sp = mx_dir_man(dir_spisok->data);
+            mx_printstr(dir_spisok->data);
+            mx_printstr(":\n");
             f(sp);
-            closedir(dir);
             //mx_printchar('\n');
-        }
-        if (file_spisok != NULL) {
-            for (t_list *i = file_spisok; i != NULL; i = i->next){
-                if (i->next == NULL){
-                    mx_printstr(i->data);
-                    mx_printstr("\n");
-                }
-                else {
-                    mx_printstr(i->data);
-                    mx_printstr("  ");
-                }
-            }
-            flag = true;
-        }     
-
-        if (dir_spisok != NULL && (file_spisok != NULL || dir_spisok->next != NULL)) {
-            if (flag)
+            if (dir_spisok->next != NULL) {
                 mx_printchar('\n');
-            while (dir_spisok != NULL){
-                DIR *dir = opendir(dir_spisok->data);
-                if (!dir) {
-                    mx_uncreated_file(dir_spisok->data); 
-                }
-                t_list *sp = mx_return_spisok(dir);
-                mx_printstr(dir_spisok->data);
-                mx_printstr(":\n");
-                f(sp);
-                //mx_printchar('\n');
-                if (dir_spisok->next != NULL) {
-                    mx_printchar('\n');
-                }
-                dir_spisok = dir_spisok->next;
-                closedir(dir);
             }
+            dir_spisok = dir_spisok->next;
+            closedir(dir);
         }
+    }
 }
 
-void mx_multy_file_and_dir_output_r_sort(void (*f)(t_list *), int argc, char *argv[], int nachalo){
+void mx_multi_file_and_dir_output_r_sort(void (*f)(t_list *), int argc, char *argv[], int nachalo){
 
         bool flag = false;
         t_list *file_spisok = mx_list_r_file(argc, argv, nachalo);
