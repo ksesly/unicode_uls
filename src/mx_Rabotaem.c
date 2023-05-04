@@ -72,9 +72,13 @@ void mx_tipa_recyrsia(char *path){
     mx_print_columnnnnnnnn(spisok);
     for (t_list *i = spisok; i != NULL; i = i->next){
         struct stat file_statistics;
-        char route_in_file[1024];
 
-        sprintf(route_in_file, "%s/%s", path, i->data);
+        char *route_in_file = NULL;        
+        int len = mx_strlen(path) + 1 + mx_strlen(i->data) + 1;
+        route_in_file = mx_strnew(len);        
+        mx_strcpy(route_in_file, path);
+        mx_strcat(route_in_file, "/");        
+        mx_strcat(route_in_file, i->data);
         if (stat(route_in_file, &file_statistics) == -1){
             continue;
         }
@@ -82,6 +86,7 @@ void mx_tipa_recyrsia(char *path){
             mx_printstr("\n");
             mx_tipa_recyrsia(route_in_file);
         }
+        free(route_in_file);
     }
 
     closedir(dir);

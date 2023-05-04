@@ -15,9 +15,9 @@ void mx_full_ls_function(char* argv[], int argc) {
         mx_print_columnnnnnnnn(spisok);
         closedir(dir);
     }
-    else if (mx_strcmp(argv[1], "-m") == 0){
-        mx_check_m();
-    }
+    // else if (mx_strcmp(argv[1], "-m") == 0){
+    //     mx_check_m();
+    // }
     else if (mx_strcmp(argv[1], "-m") == 0){
         if (argc == 2)
             mx_check_m();
@@ -75,6 +75,7 @@ void mx_full_ls_function(char* argv[], int argc) {
         }
         if (file_spisok != NULL) {
             mx_print_columnnnnnnnn(file_spisok);
+            mx_printchar('\n');
         }     
         if (dir_spisok != NULL && (dir_spisok->next != NULL || count > 1)) {
 

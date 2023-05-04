@@ -51,6 +51,7 @@ void mx_bubble_r_list_sort(t_list *start) {
 }
 
 
+
 char* mx_trimtime(char* str) {
     char* n_str = malloc(12);
     for (int i = 0; i < 12; i++) {
