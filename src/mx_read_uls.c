@@ -8,7 +8,8 @@ void mx_full_ls_function(char* argv[], int argc) {
 
         DIR *dir = opendir(".");
         if (!dir) {
-            mx_uncreated_file("."); 
+            mx_printerr("uls: ");
+            perror(".");
         }
         t_list *spisok = mx_return_spisok(dir);
         mx_print_columnnnnnnnn(spisok);
@@ -52,47 +53,64 @@ void mx_full_ls_function(char* argv[], int argc) {
         bool is_already = true;
         t_list *file_spisok = mx_list_file(argc, argv, 1);
         t_list *dir_spisok = mx_list_dir(argc, argv, 1);
-        if (dir_spisok->next == NULL && file_spisok == NULL) {
+        int count = mx_list_dir_int(argc, argv, 1);
+        if (dir_spisok == NULL && file_spisok == NULL) {
+            return;
+        }
+        if (dir_spisok != NULL && (dir_spisok->next == NULL && count == 1) && file_spisok == NULL) {
+            if (dir_spisok == NULL) {
+                return;
+            }
             DIR *dir = opendir(dir_spisok->data);
             if (!dir) {
-                mx_uncreated_file(".");
+                mx_printerr("uls: ");
+                perror(dir_spisok->data);
             }
-            t_list *sp = mx_return_spisok(dir);
-            mx_print_columnnnnnnnn(sp);
-            closedir(dir);
-            is_already = false;
+            else {
+                t_list *sp = mx_return_spisok(dir);
+                mx_print_columnnnnnnnn(sp);
+                closedir(dir);
+                is_already = false;
+            }
         }
         if (file_spisok != NULL) {
             mx_print_columnnnnnnnn(file_spisok);
-            mx_printchar('\n');
         }     
-        if (dir_spisok->next != NULL) {
+        if (dir_spisok != NULL && (dir_spisok->next != NULL || count > 1)) {
 
             while (dir_spisok != NULL){
                
                 DIR *dir = opendir(dir_spisok->data);
                 if (!dir) {
-                    mx_uncreated_file(".");
+                    //mx_uncreated_file(".");
+                    mx_printerr("uls: ");
+                    perror(dir_spisok->data);
                 }
-                t_list *sp = mx_return_spisok(dir);
-                mx_printstr(dir_spisok->data);
-                mx_printstr(":\n");
-                mx_print_columnnnnnnnn(sp);
-                if (dir_spisok->next != NULL) {
-                    mx_printchar('\n');
+                else {
+                    t_list *sp = mx_return_spisok(dir);
+                    mx_printstr(dir_spisok->data);
+                    mx_printstr(":\n");
+                    mx_print_columnnnnnnnn(sp);
+                    if (dir_spisok->next != NULL) {
+                        mx_printchar('\n');
+                    }
+                    dir_spisok = dir_spisok->next;
                 }
-                dir_spisok = dir_spisok->next;
             }
         }
         else if (dir_spisok != NULL && is_already) {
             DIR *dir = opendir(dir_spisok->data);
-                if (!dir) {
-                    mx_uncreated_file(".");
-                }
+            if (!dir) {
+                mx_printerr("uls: ");
+                perror(dir_spisok->data);
+            }
+            else {
                 t_list *sp = mx_return_spisok(dir);
                 mx_printstr(dir_spisok->data);
                 mx_printstr(":\n");
                 mx_print_columnnnnnnnn(sp);
+                closedir(dir);
+            }
         }
     }
 }

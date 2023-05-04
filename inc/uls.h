@@ -72,5 +72,6 @@ t_list *mx_return_spisok_with_hiden(DIR *dir);
 t_list *mx_return_r_spisok(DIR *dir);
 t_list *mx_list_dir(int argc, char *argv[], int i);
 t_list *mx_list_file(int argc, char *argv[], int i);
+int mx_list_dir_int(int argc, char *argv[], int i);
 
 

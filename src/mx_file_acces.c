@@ -2,7 +2,6 @@
 
 void mx_print_file_access(struct stat file_statistics) {
 
-    // permission for directories
     if (S_ISDIR(file_statistics.st_mode)) {
         mx_printchar('d'); 
     }
@@ -21,15 +20,29 @@ void mx_print_file_access(struct stat file_statistics) {
     else 
         mx_printchar('-');
 
+    
+
     mx_printstr((file_statistics.st_mode & S_IRUSR) ? "r" : "-");
     mx_printstr((file_statistics.st_mode & S_IWUSR) ? "w" : "-");
-    mx_printstr((file_statistics.st_mode & S_IXUSR) ? "x" : "-");
+    //mx_printstr((file_statistics.st_mode & S_IXUSR) ? "x" : "-");
 
+    if (file_statistics.st_mode & S_IXUSR) {
+        mx_printstr((S_ISUID & file_statistics.st_mode) ? "s" : "x");
+    }
+    else {
+        mx_printstr((S_ISGID & file_statistics.st_mode) ? "S" : "-");
+    }
 
     mx_printstr((file_statistics.st_mode & S_IRGRP) ? "r" : "-");
     mx_printstr((file_statistics.st_mode & S_IWGRP) ? "w" : "-");
-    mx_printstr((file_statistics.st_mode & S_IXGRP) ? "x" : "-");
+    //mx_printstr((file_statistics.st_mode & S_IXGRP) ? "x" : "-");
 
+    if (file_statistics.st_mode & S_IXGRP) {
+        mx_printstr((S_ISGID & file_statistics.st_mode) ? "s" : "x");
+    }
+    else {
+        mx_printstr((S_ISGID & file_statistics.st_mode) ? "S" : "-");
+    }
 
     mx_printstr((file_statistics.st_mode & S_IROTH) ? "r" : "-");
     mx_printstr((file_statistics.st_mode & S_IWOTH) ? "w" : "-");

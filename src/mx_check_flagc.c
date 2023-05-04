@@ -1,22 +1,23 @@
 #include "../inc/uls.h"
 
-void mx_check_dev(int argc) {
-    if (argc == 2) {
-        DIR *dir = opendir("/dev");
-        if (!dir) {
-            mx_uncreated_file("/dev");
-        }
-        t_list *spisok = mx_return_spisok(dir);
-        mx_print_column(spisok);
-        closedir(dir);
-    }
-}
+// void mx_check_dev(int argc) {
+//     if (argc == 2) {
+//         DIR *dir = opendir("/dev");
+//         if (!dir) {
+//             mx_uncreated_file("/dev");
+//         }
+//         t_list *spisok = mx_return_spisok(dir);
+//         mx_print_column(spisok);
+//         closedir(dir);
+//     }
+// }
 
 void mx_check_r_sort(int argc, char* argv[]) {
     if (argc == 2) {
         DIR *dir = opendir(".");
         if (!dir) {
-            mx_uncreated_file(".");
+            mx_printerr("uls: ");
+            perror(".");
         }
         t_list *spisok = mx_return_r_spisok(dir);
         mx_print_columnnnnnnnn(spisok);
@@ -31,7 +32,8 @@ void mx_check_l(int argc, char* argv[]) {
 	if (argc == 2){
         DIR *dir = opendir(".");
         if (!dir) {
-            mx_uncreated_file("."); 
+            mx_printerr("uls: ");
+            perror(".");
         }
         t_list *spisok = mx_return_spisok(dir);
         mx_print_total(spisok, ".");
@@ -45,7 +47,8 @@ void mx_check_l(int argc, char* argv[]) {
         for (int i = 2; i < argc; i++){
             DIR *dir = opendir(".");
             if (!dir) {
-                mx_uncreated_file("."); 
+                mx_printerr("uls: ");
+                perror(".");
             }
             if (lstat(argv[i], &file_statistics) == 0){
                 if (S_ISDIR(file_statistics.st_mode)) {
@@ -56,7 +59,8 @@ void mx_check_l(int argc, char* argv[]) {
                 }
             }
             else {
-                mx_uncreated_file(argv[i]);
+                mx_printerr("uls: ");
+                perror(argv[i]);
             }
         }
         mx_bubble_list_sort(file_list);
@@ -97,7 +101,9 @@ void mx_check_G(int argc, char* argv[]) {
     if (argc == 2) {
         DIR *dir = opendir(".");
         if (!dir) {
-            mx_uncreated_file("."); 
+            mx_printerr("uls: ");
+            strerror(errno);
+            mx_printchar('\n');
         }
         t_list *spisok = mx_return_spisok(dir);
         mx_print_G(spisok, ".");
@@ -114,7 +120,9 @@ void mx_check_G(int argc, char* argv[]) {
 void mx_check_a() {
     DIR *dir = opendir(".");
     if (!dir) {
-        mx_uncreated_file("."); 
+        mx_printerr("uls: ");
+        strerror(errno);
+        mx_printchar('\n');
     }
     t_list *spisok = mx_return_spisok_with_dot(dir);
     mx_print_column(spisok);
@@ -124,7 +132,9 @@ void mx_check_a() {
 void mx_check_A() {
     DIR *dir = opendir(".");
     if (!dir) {
-        mx_uncreated_file("."); 
+        mx_printerr("uls: ");
+        strerror(errno);
+        mx_printchar('\n');
     }
     t_list *spisok = mx_return_spisok_with_hiden(dir);
     mx_print_column(spisok);
@@ -134,7 +144,9 @@ void mx_check_A() {
 void mx_check_row() {
     DIR *dir = opendir(".");
     if (!dir) {
-        mx_uncreated_file("."); 
+        mx_printerr("uls: ");
+        strerror(errno);
+        mx_printchar('\n');
     }
     t_list *spisok = mx_return_spisok(dir);
     mx_print_row(spisok);
@@ -144,7 +156,9 @@ void mx_check_row() {
 void mx_check_col() {
     DIR *dir = opendir(".");
     if (!dir) {
-        mx_uncreated_file("."); 
+        mx_printerr("uls: ");
+        strerror(errno);
+        mx_printchar('\n');
     }
     t_list *spisok = mx_return_spisok(dir);
     mx_print_column(spisok);
@@ -155,7 +169,9 @@ void mx_check_col() {
 void mx_check_m() {
     DIR *dir = opendir(".");
     if (!dir) {
-        mx_uncreated_file("."); 
+        mx_printerr("uls: ");
+        strerror(errno);
+        mx_printchar('\n'); 
     }
     t_list *spisok = mx_return_spisok(dir);
     mx_print_with_coma(spisok);

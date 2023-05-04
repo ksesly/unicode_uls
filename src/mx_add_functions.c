@@ -293,14 +293,20 @@ void mx_multi_file_and_dir_output(void (*f)(t_list *), int argc, char *argv[], i
     t_list *file_spisok = mx_list_file(argc, argv, nachalo);
     t_list *dir_spisok = mx_list_dir(argc, argv, nachalo);
     if (dir_spisok != NULL && dir_spisok->next == NULL && file_spisok == NULL) {
-
-        DIR *dir = opendir(dir_spisok->data);
-        if (!dir) {
-            mx_uncreated_file(dir_spisok->data); 
+        if (dir_spisok->data == NULL) {
+            return;
         }
-        t_list *sp = mx_return_spisok(dir);
-        f(sp);
-        closedir(dir);
+        else {
+            DIR *dir = opendir(dir_spisok->data);
+            if (!dir) {
+                mx_printerr("uls: ");
+                perror(dir_spisok->data);
+            }
+            t_list *sp = mx_return_spisok(dir);
+            f(sp);
+            closedir(dir);  
+        }
+        
     }
     if (file_spisok != NULL) {
         for (t_list *i = file_spisok; i != NULL; i = i->next){
@@ -322,7 +328,8 @@ void mx_multi_file_and_dir_output(void (*f)(t_list *), int argc, char *argv[], i
         while (dir_spisok != NULL){
             DIR *dir = opendir(dir_spisok->data);
             if (!dir) {
-                mx_uncreated_file(dir_spisok->data); 
+                mx_printerr("uls: ");
+                perror(dir_spisok->data);
             }
             t_list *sp = mx_return_spisok(dir);
             mx_printstr(dir_spisok->data);
@@ -343,14 +350,20 @@ void mx_multi_file_and_dir_output_r_sort(void (*f)(t_list *), int argc, char *ar
         t_list *file_spisok = mx_list_r_file(argc, argv, nachalo);
         t_list *dir_spisok = mx_list_r_dir(argc, argv, nachalo);
         if (dir_spisok != NULL && dir_spisok->next == NULL && file_spisok == NULL) {
-
-            DIR *dir = opendir(dir_spisok->data);
-            if (!dir) {
-                mx_uncreated_file(dir_spisok->data); 
+            if (dir_spisok->data == NULL) {
+                return;
             }
-            t_list *sp = mx_return_r_spisok(dir);
-            f(sp);
-            closedir(dir);
+            else {
+                DIR *dir = opendir(dir_spisok->data);
+                if (!dir) {
+                    mx_printerr("uls: ");
+                    perror(dir_spisok->data);
+                }
+                t_list *sp = mx_return_r_spisok(dir);
+                f(sp);
+                closedir(dir); 
+            }
+            
         }
         if (file_spisok != NULL) {
             for (t_list *i = file_spisok; i != NULL; i = i->next){
@@ -372,7 +385,8 @@ void mx_multi_file_and_dir_output_r_sort(void (*f)(t_list *), int argc, char *ar
             while (dir_spisok != NULL){
                 DIR *dir = opendir(dir_spisok->data);
                 if (!dir) {
-                    mx_uncreated_file(dir_spisok->data); 
+                    mx_printerr("uls: ");
+                    perror(dir_spisok->data);
                 }
                 t_list *sp = mx_return_r_spisok(dir);
                 mx_printstr(dir_spisok->data);

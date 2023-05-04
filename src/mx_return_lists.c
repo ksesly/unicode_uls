@@ -48,7 +48,8 @@ t_list *mx_list_file(int argc, char *argv[], int i){
             }
         }
         else {
-            mx_uncreated_file(argv[i]);
+            mx_printerr("uls: ");
+            perror(argv[i]);
         }
     }
 
@@ -69,12 +70,30 @@ t_list *mx_list_dir(int argc, char *argv[], int i){
                 continue;
             }
         }
-        else {
-            mx_uncreated_file(argv[i]);
-        }
+
     }
     mx_bubble_list_sort(dir_spisok);
     return dir_spisok;
+}
+
+int mx_list_dir_int(int argc, char *argv[], int i){
+    int n = 0;
+    struct stat file_statistics;
+    for (; i < argc; i++){
+        if (stat(argv[i], &file_statistics) == 0){
+            if (S_ISDIR(file_statistics.st_mode)) {
+                n++;
+            }
+            else {
+                continue;
+            }
+        }
+        else {
+            n++;
+        }
+
+    }
+    return n;
 }
 
 t_list *mx_return_r_spisok(DIR *dir){
@@ -102,7 +121,8 @@ t_list *mx_list_r_file(int argc, char *argv[], int i){
             }
         }
         else {
-            mx_uncreated_file(argv[i]);
+            mx_printerr("uls: ");
+            perror(argv[i]);
         }
     }
     mx_bubble_r_list_sort(file_spisok);
@@ -120,9 +140,6 @@ t_list *mx_list_r_dir(int argc, char *argv[], int i){
             else {
                 continue;
             }
-        }
-        else {
-            mx_uncreated_file(argv[i]);
         }
     }
     mx_bubble_r_list_sort(dir_spisok);

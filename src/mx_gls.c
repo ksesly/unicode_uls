@@ -6,11 +6,11 @@ void mx_print_dir_G(t_list *dir_spisok) {
 
         DIR *dir = opendir(dir_spisok->data);
         if (!dir) {
-            mx_uncreated_file(dir_spisok->data); 
+            mx_printerr("uls: ");
+            perror(dir_spisok->data);
         }
         t_list *sp = mx_return_spisok(dir);
 
-        //t_list *sp = mx_dir_man(dir_spisok->data);
         mx_printstr(dir_spisok->data);
         mx_printstr(":\n");
         mx_print_G(sp, dir_spisok->data);

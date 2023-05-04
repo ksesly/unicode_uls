@@ -4,7 +4,8 @@ void mx_Rls(int argc, char *argv[]){
     if (argc == 2){
         DIR *dir = opendir(".");
         if (!dir) {
-            mx_uncreated_file("."); 
+            mx_printerr("uls: ");
+            perror(".");
         }
         struct stat file_statistics;
         t_list *spisok = mx_return_spisok(dir);
@@ -34,7 +35,8 @@ void mx_Rls(int argc, char *argv[]){
         if (dir_spisok != NULL && dir_spisok->next == NULL && file_spisok == NULL) {
             DIR *dir = opendir(dir_spisok->data);
             if (!dir) {
-                mx_uncreated_file(dir_spisok->data); 
+                mx_printerr("uls: ");
+                perror(dir_spisok->data);
             }
             t_list *sp = mx_return_spisok(dir);
 

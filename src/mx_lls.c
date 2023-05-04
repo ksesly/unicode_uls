@@ -29,6 +29,7 @@
             ssize_t length = readlink(buff, temp, sizeof(temp));
             temp[length] = '\0';
             mx_printstr(mx_strcat(temp, i->data));
+            free(temp);
         }
         mx_printchar('\n');
     }
