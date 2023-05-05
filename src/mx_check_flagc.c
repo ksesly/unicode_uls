@@ -46,23 +46,29 @@ void mx_check_l(int argc, char* argv[]) {
         t_list *dir_list = NULL;
         struct stat file_statistics;
         for (int i = 2; i < argc; i++){
-            DIR *dir = opendir(".");
-            if (!dir) {
-                mx_printerr("uls: ");
-                perror(".");
-            }
-            if (lstat(argv[i], &file_statistics) == 0){
-                if (S_ISDIR(file_statistics.st_mode)) {
-                    mx_push_front(&dir_list, argv[i]);
-                }
-                else {
-                    mx_push_front(&file_list, argv[i]);
-                }
+            if (mx_strcmp(argv[i], "/dev/null") == 0) {
+                mx_dev_output();
             }
             else {
-                mx_printerr("uls: ");
-                perror(argv[i]);
+                DIR *dir = opendir(".");
+                if (!dir) {
+                    mx_printerr("uls: ");
+                    perror(".");
+                }
+                if (lstat(argv[i], &file_statistics) == 0){
+                    if (S_ISDIR(file_statistics.st_mode)) {
+                        mx_push_front(&dir_list, argv[i]);
+                    }
+                    else {
+                        mx_push_front(&file_list, argv[i]);
+                    }
+                }
+                else {
+                    mx_printerr("uls: ");
+                    perror(argv[i]);
             }
+            }
+            
         }
         mx_bubble_list_sort(file_list);
         mx_bubble_list_sort(dir_list);
@@ -90,8 +96,14 @@ void mx_check_l(int argc, char* argv[]) {
             }
 
             DIR *dir = opendir(dir_list->data);
-            mx_lls(mx_return_spisok(dir), dir_list->data);
-            closedir(dir);
+            if (!dir) {
+                mx_printerr("uls: ");
+                perror(dir_list->data);
+            }
+            else {
+                mx_lls(mx_return_spisok(dir), dir_list->data);
+            }
+            //closedir(dir);
         }
     }
 }

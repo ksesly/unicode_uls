@@ -76,7 +76,10 @@ int mx_int_length(t_list *spisok, char *path) {
     char buff[200];
 
     for (t_list *i = spisok; i != NULL; i = i->next) {
-        sprintf(buff, "%s/%s", path, i->data); 
+        mx_strcpy(buff, path);
+        mx_strcat(buff, "/");
+        mx_strcat(buff, i->data);
+
         if (stat(buff, &file_statistics) == -1) continue;
 
         int l = file_statistics.st_size;
@@ -98,7 +101,10 @@ int mx_number_length(t_list *spisok, char *path) {
     char buff[200];
 
     for (t_list *i = spisok; i != NULL; i = i->next) {
-        sprintf(buff, "%s/%s", path, i->data);
+        mx_strcpy(buff, path);
+        mx_strcat(buff, "/");
+        mx_strcat(buff, i->data);
+
         if (stat(buff, &file_statistics) == -1) continue;
 
         int l = file_statistics.st_nlink;
@@ -113,6 +119,71 @@ int mx_number_length(t_list *spisok, char *path) {
     }
     return max;
 }
+
+int mx_length(t_list *spisok, char *path) {
+    struct passwd *pw;
+    struct stat file_statistics;
+    int max = 0;
+    char buff[1024];
+
+    for (t_list *i = spisok; i != NULL; i = i->next) {
+        mx_strcpy(buff, path);
+        mx_strcat(buff, "/");
+        mx_strcat(buff, i->data);
+
+        if (stat(buff, &file_statistics) == -1) continue;
+
+        pw = getpwuid(file_statistics.st_uid);
+
+        int n = mx_strlen(pw->pw_name);
+        if (n > max) {
+            max = n;
+        }       
+    }
+    return max;
+}
+
+int mx_length_group(t_list *spisok, char *path) {
+    struct group *grp;
+    struct stat file_statistics;
+    int max = 0;
+    char buff[1024];
+
+    for (t_list *i = spisok; i != NULL; i = i->next) {
+        mx_strcpy(buff, path);
+        mx_strcat(buff, "/");
+        mx_strcat(buff, i->data);
+
+        if (stat(buff, &file_statistics) == -1) continue;
+
+        grp = getgrgid(file_statistics.st_gid);
+
+        int n = mx_strlen(grp->gr_name);
+        if (n > max) {
+            max = n;
+        }       
+    }
+    return max;
+}
+
+void mx_print_name(int max_name, struct passwd *pw) {
+    char *s = pw->pw_name;
+    int temp = mx_strlen(s);
+    mx_printstr(pw->pw_name);
+    for (; temp < max_name; temp++)
+        mx_printchar(' ');
+}
+
+void mx_print_group(int max_group, struct group *grp) {
+    
+    char *s = grp->gr_name;
+    int temp = mx_strlen(s);
+    mx_printstr(grp->gr_name);
+    for (; temp < max_group; temp++)
+        mx_printchar(' ');
+}
+
+
 
 void mx_print_size(int max, int size) {
     int s = size;
@@ -150,8 +221,10 @@ int mx_total(t_list *spisok, char *path){
     int size = 0;
 
     for (t_list *i = spisok; i != NULL; i = i->next){
-        sprintf(buff, "%s/%s", path, i->data);
-        if (stat(buff, &file_statistics) == -1) {
+        mx_strcpy(buff, path);
+        mx_strcat(buff, "/");
+        mx_strcat(buff, i->data);
+        if (lstat(buff, &file_statistics) == -1) {
             perror(buff);
             continue;
             

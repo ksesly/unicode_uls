@@ -33,7 +33,9 @@ void mx_print_dir_G(t_list *dir_spisok);
 void mx_print_G(t_list *spisok, char *dir);
 void mx_print_with_coma(t_list *spisok);
 void mx_print_columnnnnnnnn(t_list *spisok);
-void mx_print_lls(struct stat file_statistics, int max_size, int max_number, char* filename);
+void mx_print_lls(struct stat file_statistics, int max_size, int max_number, char* filename, int max_name, int max_group);
+void mx_print_name(int max_name, struct passwd *pw);
+void mx_print_group(int max_group, struct group *grp);
 
 //additional functions
 char* mx_trimtime(char* str);
@@ -43,6 +45,8 @@ int mx_total(t_list *spisok, char *path);
 int mx_number_length(t_list *spisok, char *path);
 void mx_multi_file_and_dir_output(void (*f)(t_list *), int argc, char *argv[], int nachalo);
 void mx_multi_file_and_dir_output_r_sort(void (*f)(t_list *), int argc, char *argv[], int nachalo);
+int mx_length(t_list *spisok, char *path);
+int mx_length_group(t_list *spisok, char *path);
 
 //ls
 void mx_lls(t_list *spisok, char *path);
@@ -73,5 +77,7 @@ t_list *mx_return_r_spisok(DIR *dir);
 t_list *mx_list_dir(int argc, char *argv[], int i);
 t_list *mx_list_file(int argc, char *argv[], int i);
 int mx_list_dir_int(int argc, char *argv[], int i);
+
+void mx_dev_output();
 
 

@@ -39,7 +39,7 @@ t_list *mx_list_file(int argc, char *argv[], int i){
     t_list *file_spisok = NULL;
     struct stat file_statistics;
     for (; i < argc; i++){
-        if (stat(argv[i], &file_statistics) == 0){
+        if (lstat(argv[i], &file_statistics) == 0){
             if (S_ISDIR(file_statistics.st_mode)) {
                 continue;
             }
@@ -48,6 +48,7 @@ t_list *mx_list_file(int argc, char *argv[], int i){
             }
         }
         else {
+                            
             mx_printerr("uls: ");
             perror(argv[i]);
         }
@@ -62,15 +63,15 @@ t_list *mx_list_dir(int argc, char *argv[], int i){
     t_list *dir_spisok = NULL;
     struct stat file_statistics;
     for (; i < argc; i++){
-        if (stat(argv[i], &file_statistics) == 0){
+        if (lstat(argv[i], &file_statistics) == 0){
             if (S_ISDIR(file_statistics.st_mode)) {
+                // mx_printstr("blya");
                 mx_push_front(&dir_spisok, argv[i]);
             }
             else {
                 continue;
             }
         }
-
     }
     mx_bubble_list_sort(dir_spisok);
     return dir_spisok;
